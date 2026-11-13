@@ -99,7 +99,7 @@ const valentin = {
     { id: 'zu-zweit', ic: '💞', jump: 'Für euch zwei', h: 'Für euch zwei', fact: "Schon im Februar kann an sonnigen Tagen ein Zitronenfalter fliegen: Er überwintert als fertiger Falter im Freien und übersteht dabei starken Frost.", ideas: [
       { t: 'Schokoladen-Fondue', price: U25, p: 'Obst schneiden, Schokolade schmelzen, Licht dimmen. Fertig ist das Date.', q: 'Schokoladenfondue Set' },
       { t: 'Erlebnis für zwei', price: M, p: 'Ihr sucht euch zusammen aus, was ihr erleben wollt – von Wellness bis Abenteuer.', q: 'Erlebnisgeschenk für zwei Box' },
-      { t: 'Spiel für Paare', price: U25, p: 'Ein Abend mit Fragen, Aufgaben und viel Gelächter.', q: 'Spiel für Paare', also: { href: 'https://mojambaauto.github.io/schmetterlingsfutter/', label: 'Gratis: Spiele in der App' } },
+      { t: 'Spiel für Paare', price: U25, p: 'Ein Abend mit Fragen, Aufgaben und viel Gelächter.', q: 'Spiel für Paare', also: { href: 'https://app.schmetterlingsfutter.de/', label: 'Gratis: Spiele in der App' } },
       { t: 'Massageöl und Kerzen', price: U25, p: 'Das Geschenk ist eigentlich die Massage. Das Öl ist nur die Ausrede.', q: 'Massageöl Set Paare' },
       { t: 'Album für euer Jahr', price: U25, p: 'Ab dem 14. Februar füllt ihr es gemeinsam – ein Foto pro Woche.', q: 'Fotoalbum zum Einkleben Paar' },
     ] },

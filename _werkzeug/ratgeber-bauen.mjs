@@ -8,7 +8,7 @@ import { SITE, PAGES } from './ratgeber-inhalte.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const TAG = 'schmetterlingsfutter-21';
-const APP = 'https://mojambaauto.github.io/schmetterlingsfutter/';
+const APP = 'https://app.schmetterlingsfutter.de/';
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const strip = (s) => String(s).replace(/<[^>]+>/g, '');
 const amazon = (q) => 'https://www.amazon.de/s?k=' + encodeURIComponent(q).replace(/%20/g, '+') + '&tag=' + TAG;

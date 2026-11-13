@@ -1,8 +1,8 @@
 /* Gemeinsames Design der Ratgeber-Seiten – gleiche Farben und Schriften wie App und Startseite */
-@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400 700;font-display:swap;src:url('https://mojambaauto.github.io/schmetterlingsfutter/fonts/PlayfairDisplay-400.woff2') format('woff2')}
-@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;font-display:swap;src:url('https://mojambaauto.github.io/schmetterlingsfutter/fonts/PlayfairDisplay-400i.woff2') format('woff2')}
-@font-face{font-family:'Lato';font-style:normal;font-weight:400;font-display:swap;src:url('https://mojambaauto.github.io/schmetterlingsfutter/fonts/Lato-400.woff2') format('woff2')}
-@font-face{font-family:'Lato';font-style:normal;font-weight:700;font-display:swap;src:url('https://mojambaauto.github.io/schmetterlingsfutter/fonts/Lato-700.woff2') format('woff2')}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400 700;font-display:swap;src:url('https://app.schmetterlingsfutter.de/fonts/PlayfairDisplay-400.woff2') format('woff2')}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;font-display:swap;src:url('https://app.schmetterlingsfutter.de/fonts/PlayfairDisplay-400i.woff2') format('woff2')}
+@font-face{font-family:'Lato';font-style:normal;font-weight:400;font-display:swap;src:url('https://app.schmetterlingsfutter.de/fonts/Lato-400.woff2') format('woff2')}
+@font-face{font-family:'Lato';font-style:normal;font-weight:700;font-display:swap;src:url('https://app.schmetterlingsfutter.de/fonts/Lato-700.woff2') format('woff2')}
 
 :root{
   --bg0:#1a0a1e;--bg1:#2d1133;
