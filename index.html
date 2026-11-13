@@ -106,13 +106,19 @@ footer b{color:var(--text-soft);font-weight:400;letter-spacing:2px;text-transfor
 .veil{position:fixed;inset:0;background:linear-gradient(160deg,var(--bg0),var(--bg1));z-index:10;pointer-events:none;clip-path:circle(0 at var(--vx,50%) var(--vy,50%))}
 .leaving .veil{clip-path:circle(150% at var(--vx,50%) var(--vy,50%));transition:clip-path 650ms var(--ease-in-out)}
 
+/* ---------- Install hint ---------- */
+.install{margin-top:14px;font-size:15px;color:var(--text-muted);max-width:26em;line-height:1.5}
+.install b{color:var(--text-soft);font-weight:700}
+.install [data-os]{display:none}
+html:not(.os-ios):not(.os-android) .install [data-os="all"],.os-ios .install [data-os="ios"],.os-android .install [data-os="android"]{display:block}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition-duration:1ms!important;transition-delay:0ms!important;scroll-behavior:auto!important}
   .js [data-load],.js [data-reveal],.split .w>span{opacity:1!important;transform:none!important}
   .glow,.pill-btn{transform:none!important}
 }
 </style>
-<script>document.documentElement.classList.add('js')</script>
+<script>(function(r,u){r.classList.add('js');if(/iPhone|iPad|iPod/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1))r.classList.add('os-ios');else if(/Android/.test(u))r.classList.add('os-android')})(document.documentElement,navigator.userAgent)</script>
 </head>
 <body>
 <div class="stars" id="stars" aria-hidden="true"></div>
@@ -128,6 +134,11 @@ footer b{color:var(--text-soft);font-weight:400;letter-spacing:2px;text-transfor
   <h1 class="split" data-split>Schmetterlingsfutter</h1>
   <p class="lead" data-load style="--i:2">Die kostenlose App für Paare – Futter für die Schmetterlinge im Bauch. Kleine Ideen für jeden Tag, damit die Beziehung lebendig bleibt.</p>
   <p data-load style="--i:3"><a class="pill-btn" data-magnetic data-leave href="https://mojambaauto.github.io/schmetterlingsfutter/">App öffnen <span class="arrow" aria-hidden="true">→</span></a></p>
+  <div class="install" data-load style="--i:4">
+    <p data-os="android">📲 Auf den Startbildschirm: App öffnen, dann in Chrome oben rechts <b>⋮</b> → <b>„App installieren“</b>.</p>
+    <p data-os="ios">📲 Auf den Home-Bildschirm: App in Safari öffnen, dann <b>Teilen</b> <span aria-hidden="true">⬆︎</span> → <b>„Zum Home-Bildschirm“</b>.</p>
+    <p data-os="all">📲 Als App aufs Handy: Öffnen, dann <b>Android/Chrome:</b> ⋮ → „App installieren“ · <b>iPhone/Safari:</b> Teilen → „Zum Home-Bildschirm“.</p>
+  </div>
 
   <section>
     <h2 class="view-title" data-reveal>Was die App kann</h2>
