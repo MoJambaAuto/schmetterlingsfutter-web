@@ -1,0 +1,128 @@
+/* Gemeinsames Design der Ratgeber-Seiten – gleiche Farben und Schriften wie App und Startseite */
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400 700;font-display:swap;src:url('https://mojambaauto.github.io/schmetterlingsfutter/fonts/PlayfairDisplay-400.woff2') format('woff2')}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;font-display:swap;src:url('https://mojambaauto.github.io/schmetterlingsfutter/fonts/PlayfairDisplay-400i.woff2') format('woff2')}
+@font-face{font-family:'Lato';font-style:normal;font-weight:400;font-display:swap;src:url('https://mojambaauto.github.io/schmetterlingsfutter/fonts/Lato-400.woff2') format('woff2')}
+@font-face{font-family:'Lato';font-style:normal;font-weight:700;font-display:swap;src:url('https://mojambaauto.github.io/schmetterlingsfutter/fonts/Lato-700.woff2') format('woff2')}
+
+:root{
+  --bg0:#1a0a1e;--bg1:#2d1133;
+  --accent:#ff6496;--accent-2:#ff85a1;--accent-deep:#e8305a;
+  --text:#fff1f5;--text-soft:#f6dbe6;--text-muted:#f2bfd0;
+  --line:rgba(255,150,180,.3);--line-soft:rgba(255,150,180,.18);
+  --glass:rgba(255,255,255,.05);
+  --glow:rgba(255,100,150,.45);
+  --radius:20px;--radius-s:14px;
+  --serif:'Playfair Display',Georgia,'Times New Roman',serif;
+  --sans:'Lato',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:16px}
+body{min-height:100vh;background:linear-gradient(160deg,var(--bg0) 0%,var(--bg1) 45%,var(--bg0) 100%) fixed;background-color:var(--bg0);
+  color:var(--text-soft);font-family:var(--sans);font-size:19px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--accent-2)}
+:focus-visible{outline:2px solid var(--accent-2);outline-offset:3px;border-radius:4px}
+b,strong{color:var(--text);font-weight:700}
+
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+
+/* Kopf */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-family:var(--serif);font-style:italic;font-size:20px}
+.brand img{width:36px;height:36px;border-radius:10px}
+.pill{display:inline-flex;align-items:center;gap:.4em;min-height:44px;padding:10px 20px;border-radius:24px;border:.5px solid var(--accent-2);
+  background:var(--accent-deep);color:#fff;font-size:17px;font-weight:700;text-decoration:none;white-space:nowrap;box-shadow:0 6px 22px var(--glow);
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+.pill:hover{transform:translateY(-1px);box-shadow:0 10px 30px var(--glow)}
+.pill.ghost{background:transparent;box-shadow:none}
+@media (max-width:420px){.brand{font-size:17px;gap:8px}.brand img{width:32px;height:32px}.top .pill{padding:8px 14px;font-size:16px}}
+
+/* Einstieg */
+.crumbs{font-size:16px;color:var(--text-muted);margin:8px 0 18px}
+.crumbs a{color:var(--text-muted)}
+h1{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(2rem,7vw,2.9rem);line-height:1.15;color:var(--text);margin-bottom:14px}
+.lead{font-size:20px;color:var(--text-soft);margin-bottom:22px}
+.meta{font-size:16px;color:var(--text-muted);margin-bottom:22px}
+
+/* Sprungmarken */
+.jump{display:flex;flex-wrap:wrap;gap:10px;list-style:none;margin-bottom:12px}
+.jump a{display:inline-flex;align-items:center;min-height:44px;padding:8px 16px;border-radius:999px;background:var(--glass);border:.5px solid var(--line);
+  color:var(--text);text-decoration:none;font-size:17px}
+.jump a:hover{border-color:var(--accent-2);background:rgba(255,255,255,.08)}
+
+/* Abschnitte */
+section{margin-top:52px}
+h2{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(1.6rem,5vw,2rem);line-height:1.2;color:var(--text);margin-bottom:10px}
+h2 .ic{font-style:normal;margin-right:.25em}
+section>p{margin-bottom:16px}
+h3{font-size:20px;line-height:1.35;color:var(--text);font-weight:700;margin-bottom:6px}
+
+/* Ideen-Karten */
+.ideas{display:grid;grid-template-columns:1fr;gap:14px;list-style:none;margin-top:18px}
+@media (min-width:640px){.ideas{grid-template-columns:1fr 1fr}}
+.idea{display:flex;flex-direction:column;gap:10px;background:var(--glass);border:.5px solid var(--line);border-radius:var(--radius);padding:18px 20px;
+  transition:transform .25s var(--ease),border-color .25s var(--ease),background .25s var(--ease)}
+@media (hover:hover){.idea:hover{transform:translateY(-2px);border-color:var(--accent-2);background:rgba(255,255,255,.07)}}
+.idea p{font-size:18px;flex:1}
+.price{display:inline-block;align-self:flex-start;font-size:16px;font-weight:700;color:var(--text);background:rgba(255,100,150,.18);border-radius:999px;padding:3px 12px;font-variant-numeric:tabular-nums}
+.buy{display:inline-flex;align-items:center;justify-content:center;gap:.4em;align-self:flex-start;min-height:44px;padding:9px 18px;border-radius:22px;
+  border:1px solid var(--accent-2);color:var(--text);text-decoration:none;font-size:17px;font-weight:700;transition:background .2s var(--ease)}
+.buy:hover{background:rgba(255,100,150,.18)}
+.buy.app{border-color:var(--line);color:var(--accent-2)}
+.note{font-size:16px;color:var(--text-muted)}
+
+/* Falter-Wissen */
+.fact{display:flex;gap:12px;align-items:flex-start;margin-top:18px;padding:14px 18px;border-radius:var(--radius-s);
+  background:rgba(155,93,229,.14);border-left:3px solid #b38cf0;font-size:18px}
+.fact .fic{font-size:24px;line-height:1.2}
+
+/* App-Hinweis */
+.appbox{margin-top:40px;padding:22px;border-radius:var(--radius);border:1px solid var(--accent-2);
+  background:linear-gradient(160deg,rgba(255,100,150,.16),rgba(155,93,229,.10));box-shadow:0 14px 34px -18px var(--glow)}
+.appbox h2{margin-bottom:8px}
+.appbox p{margin-bottom:16px}
+
+/* Tipps */
+.steps{list-style:none;counter-reset:s;display:flex;flex-direction:column;gap:12px;margin-top:14px}
+.steps li{counter-increment:s;display:flex;gap:14px;align-items:flex-start;background:var(--glass);border:.5px solid var(--line-soft);border-radius:var(--radius-s);padding:14px 16px}
+.steps li::before{content:counter(s);flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;
+  background:rgba(255,100,150,.22);color:var(--accent-2);font-weight:700}
+
+/* Fragen */
+.qs{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:16px;counter-reset:q}
+.qs li{counter-increment:q;display:flex;gap:12px;background:var(--glass);border:.5px solid var(--line-soft);border-radius:var(--radius-s);padding:12px 16px;font-size:18px}
+.qs li::before{content:counter(q);flex-shrink:0;min-width:1.6em;color:var(--accent-2);font-weight:700;font-variant-numeric:tabular-nums}
+.zufall{margin-top:20px;padding:24px 20px;border-radius:var(--radius);border:1px solid var(--accent-2);background:rgba(255,255,255,.04);text-align:center}
+.zufall .frage{font-family:var(--serif);font-style:italic;font-size:clamp(1.4rem,4.6vw,1.8rem);line-height:1.35;color:var(--text);min-height:3.2em;
+  display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.zufall .row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.zufall button{font:inherit;cursor:pointer}
+.zufall .klein{font-size:16px;color:var(--text-muted);margin-top:12px}
+
+/* Countdown */
+.count{display:inline-flex;align-items:baseline;gap:.4em;padding:8px 16px;border-radius:999px;background:rgba(255,100,150,.18);color:var(--text);font-weight:700;font-size:18px;margin-bottom:22px}
+.count span{font-variant-numeric:tabular-nums;font-size:22px}
+
+/* Häufige Fragen */
+.faq{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.faq details{background:var(--glass);border:.5px solid var(--line);border-radius:var(--radius-s);padding:0 18px}
+.faq summary{cursor:pointer;list-style:none;padding:14px 0;font-weight:700;color:var(--text);display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--accent-2);font-size:24px;line-height:1;transition:transform .2s var(--ease)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 0 16px}
+
+/* Weitere Ratgeber */
+.more{display:grid;grid-template-columns:1fr;gap:12px;list-style:none;margin-top:14px}
+@media (min-width:640px){.more{grid-template-columns:1fr 1fr}}
+.more a{display:flex;gap:12px;align-items:center;min-height:56px;padding:14px 18px;border-radius:var(--radius-s);background:var(--glass);border:.5px solid var(--line);
+  color:var(--text);text-decoration:none;font-weight:700}
+.more a:hover{border-color:var(--accent-2)}
+
+/* Fuß */
+.disclose{margin-top:44px;font-size:16px;color:var(--text-muted)}
+footer{margin-top:28px;padding:20px 0 40px;border-top:.5px solid var(--line-soft);font-size:16px;color:var(--text-muted);line-height:1.7}
+footer a{color:var(--text-muted)}
+footer .links{display:flex;flex-wrap:wrap;gap:6px 18px;margin-bottom:12px}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:1ms!important;scroll-behavior:auto!important}}

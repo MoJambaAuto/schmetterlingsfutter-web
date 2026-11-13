@@ -110,6 +110,10 @@ section{width:100%;margin-top:56px}
 .card.games>span:not(.ic){flex:1 1 0;min-width:0}
 .chips{display:flex;flex-wrap:wrap;gap:8px;flex-basis:100%;list-style:none}
 .chips li{padding:6px 11px;border-radius:999px;background:rgba(255,255,255,.06);border:.5px solid var(--line);color:var(--text);font-size:15px;white-space:nowrap}
+a.card.guide{text-decoration:none;align-items:center}
+a.card.guide>span:nth-child(2){flex:1}
+.card .go{color:var(--accent-2);font-size:22px;transition:transform var(--t-s) var(--ease-spring)}
+a.card.guide:hover .go{transform:translateX(4px)}
 .tl{color:var(--accent-2);text-decoration:none;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size var(--t-s) var(--ease-out)}
 .tl:hover,.tl:focus-visible{background-size:100% 1px}
 
@@ -222,6 +226,14 @@ html:not(.os-ios):not(.os-android) .install [data-os="all"],.os-ios .install [da
   </section>
 
   <section>
+    <h2 class="view-title" data-reveal>Ideen für euch</h2>
+    <p class="view-sub" data-reveal style="--i:1">Ratgeber</p>
+    <a class="card guide" data-reveal style="--i:0" href="/geschenkideen-freundin-freund/"><span class="ic" aria-hidden="true">🎁</span><span><b>Geschenkideen für Freundin &amp; Freund</b> – persönlich, nach Budget sortiert.</span><span class="go" aria-hidden="true">→</span></a>
+    <a class="card guide" data-reveal style="--i:1" href="/valentinstag-geschenke/"><span class="ic" aria-hidden="true">🌹</span><span><b>Valentinstag-Geschenke</b> – für sie, ihn und euch zwei.</span><span class="go" aria-hidden="true">→</span></a>
+    <a class="card guide" data-reveal style="--i:2" href="/fragen-fuer-paare/"><span class="ic" aria-hidden="true">💬</span><span><b>Fragen für Paare</b> – 70 Fragen und eine Zufallsfrage für heute Abend.</span><span class="go" aria-hidden="true">→</span></a>
+  </section>
+
+  <section>
     <h2 class="view-title" data-reveal>Daten &amp; Werbung</h2>
     <p class="view-sub" data-reveal style="--i:1">Ehrlich &amp; privat</p>
     <div class="card soft" data-reveal>Deine Einträge bleiben auf deinem Gerät. Die App ist kostenlos und finanziert sich über gekennzeichnete Partnerlinks (z.&nbsp;B. zu Geschenk- und Erlebnis-Anbietern). Für dich entstehen dadurch keine Mehrkosten.<br><br><a class="tl" href="https://mojambaauto.github.io/schmetterlingsfutter/privacy.html">Datenschutzerklärung</a></div>
@@ -233,7 +245,7 @@ html:not(.os-ios):not(.os-android) .install [data-os="all"],.os-ios .install [da
     <div class="card soft" data-reveal>Fragen, Ideen oder Kooperationen:<br><a class="tl" href="mailto:info@mojamba.de">info@mojamba.de</a></div>
   </section>
 
-  <footer data-reveal>
+  <footer id="impressum" data-reveal>
     <b>Impressum</b><br>
     MoJamba – Stefan Wilhelm Münch<br>Pelzstr. 30, 53347 Alfter<br>
     E-Mail: info@mojamba.de · USt-IdNr. DE239987756<br>
