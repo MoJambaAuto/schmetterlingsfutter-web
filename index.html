@@ -7,41 +7,180 @@
 <meta name="description" content="Schmetterlingsfutter ist eine kostenlose App für Paare: kleine Ideen, Anlässe, Wünsche und Liebesbotschaften – Futter für die Schmetterlinge im Bauch.">
 <link rel="icon" href="https://mojambaauto.github.io/schmetterlingsfutter/icons/icon-192.png">
 <style>
-:root{--bg:#fff8f6;--fg:#2b1d22;--accent:#c2416b;--muted:#6b5a60;--card:#fff}
-@media (prefers-color-scheme:dark){:root{--bg:#1d1418;--fg:#f6eaee;--accent:#f07aa0;--muted:#c2adb4;--card:#2a1e23}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 system-ui,sans-serif}
-main{max-width:760px;margin:auto;padding:32px 16px}
-h1{font-size:2.2rem;margin:.2em 0}h2{margin-top:1.8em}
-.btn{display:inline-block;background:var(--accent);color:#fff;padding:14px 24px;border-radius:12px;text-decoration:none;font-weight:600}
-.card{background:var(--card);border-radius:14px;padding:16px 20px;margin:12px 0}
-small,footer{color:var(--muted)}a{color:var(--accent)}
-footer{border-top:1px solid #8883;margin-top:40px;padding-top:16px;font-size:.9rem}
+/* ---------- Tokens ---------- */
+:root{
+  --bg:#fff8f6;--fg:#2b1d22;--accent:#c2416b;--accent-2:#e98aa8;--muted:#6b5a60;--card:#fff;--line:#2b1d2214;
+  /* Motion tokens: one vocabulary for the whole page */
+  --ease-out:cubic-bezier(.22,1,.36,1);      /* arrivals: quick start, soft landing */
+  --ease-in-out:cubic-bezier(.65,0,.35,1);   /* exits and state swaps */
+  --ease-spring:cubic-bezier(.34,1.4,.64,1); /* small tactile feedback only */
+  --t-xs:160ms;--t-s:280ms;--t-m:600ms;--t-l:900ms;
+  --stagger:70ms;--rise:18px;
+}
+@media (prefers-color-scheme:dark){:root{--bg:#1d1418;--fg:#f6eaee;--accent:#f07aa0;--accent-2:#b4506f;--muted:#c2adb4;--card:#2a1e23;--line:#ffffff14}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 system-ui,sans-serif;overflow-x:hidden}
+main{max-width:760px;margin:auto;padding:48px 16px 32px;position:relative}
+h1{font-size:clamp(2.2rem,7vw,3.4rem);line-height:1.1;margin:.2em 0 .3em;letter-spacing:-.02em}
+h2{margin-top:2.2em;font-size:1.5rem}
+a{color:var(--accent)}
+small,footer{color:var(--muted)}
+footer{border-top:1px solid var(--line);margin-top:56px;padding-top:16px;font-size:.9rem}
+
+/* ---------- Hero: ambient glow (parallax layer) ---------- */
+.glow{position:fixed;inset:-20vh -20vw auto auto;width:70vw;height:70vw;max-width:720px;max-height:720px;border-radius:50%;
+  background:radial-gradient(closest-side,color-mix(in srgb,var(--accent-2) 35%,transparent),transparent);
+  filter:blur(10px);z-index:-1;pointer-events:none;transform:translate3d(0,var(--py,0px),0);will-change:transform}
+
+/* ---------- Butterfly mark ---------- */
+.mark{width:56px;height:56px;display:block;transform-origin:50% 60%}
+.mark .wing{transform-origin:50% 50%;transform-box:fill-box}
+.mark .wl{transform-origin:100% 50%}.mark .wr{transform-origin:0% 50%}
+.loaded .mark .wl{animation:flapL 4.8s var(--ease-in-out) 1.2s infinite}
+.loaded .mark .wr{animation:flapR 4.8s var(--ease-in-out) 1.2s infinite}
+@keyframes flapL{0%,70%,100%{transform:scaleX(1)}78%{transform:scaleX(.55)}86%{transform:scaleX(1)}}
+@keyframes flapR{0%,70%,100%{transform:scaleX(1)}78%{transform:scaleX(.55)}86%{transform:scaleX(1)}}
+
+/* ---------- Page-load choreography ---------- */
+.js [data-load]{opacity:0;transform:translate3d(0,var(--rise),0)}
+.js.loaded [data-load]{opacity:1;transform:none;
+  transition:opacity var(--t-l) var(--ease-out),transform var(--t-l) var(--ease-out);
+  transition-delay:calc(var(--i,0) * 120ms + 80ms)}
+/* Headline: word-by-word rise behind a mask */
+.split .w{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.08em}
+.split .w>span{display:inline-block;transform:translate3d(0,110%,0)}
+.loaded .split .w>span{transform:none;transition:transform var(--t-l) var(--ease-out);transition-delay:calc(var(--wi) * 60ms + 200ms)}
+.js .split{opacity:1!important;transform:none!important}
+
+/* ---------- Scroll reveals ---------- */
+.js [data-reveal]{opacity:0;transform:translate3d(0,var(--rise),0)}
+.js [data-reveal].in{opacity:1;transform:none;
+  transition:opacity var(--t-m) var(--ease-out),transform var(--t-m) var(--ease-out);
+  transition-delay:calc(var(--i,0) * var(--stagger))}
+
+/* ---------- Primary button ---------- */
+.btn{position:relative;display:inline-flex;align-items:center;gap:.5em;background:var(--accent);color:#fff;padding:14px 24px;border-radius:14px;
+  text-decoration:none;font-weight:600;isolation:isolate;overflow:hidden;
+  transform:translate3d(var(--mx,0),var(--my,0),0);
+  transition:transform var(--t-s) var(--ease-out),box-shadow var(--t-s) var(--ease-out)}
+.btn::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(120px circle at var(--hx,50%) var(--hy,50%),#ffffff40,transparent 60%);
+  opacity:0;transition:opacity var(--t-s) var(--ease-out)}
+.btn:hover{box-shadow:0 10px 30px -10px var(--accent)}
+.btn:hover::before{opacity:1}
+.btn:active{transform:translate3d(var(--mx,0),var(--my,0),0) scale(.97);transition-duration:var(--t-xs)}
+.btn .arrow{transition:transform var(--t-s) var(--ease-spring)}
+.btn:hover .arrow{transform:translateX(4px)}
+.btn:focus-visible{outline:3px solid var(--accent-2);outline-offset:3px}
+
+/* ---------- Feature cards ---------- */
+.card{background:var(--card);border-radius:16px;padding:16px 20px 16px 56px;margin:12px 0;position:relative;border:1px solid var(--line);
+  transition:transform var(--t-s) var(--ease-out),box-shadow var(--t-s) var(--ease-out),border-color var(--t-s) var(--ease-out)}
+.card .ic{position:absolute;left:18px;top:16px;font-size:1.3rem;transition:transform var(--t-s) var(--ease-spring)}
+@media (hover:hover){
+  .card:hover{transform:translate3d(0,-3px,0);box-shadow:0 14px 30px -18px #c2416b66;border-color:color-mix(in srgb,var(--accent) 35%,transparent)}
+  .card:hover .ic{transform:scale(1.18) rotate(-6deg)}
+}
+
+/* ---------- Text links: underline draws in ---------- */
+.tl{text-decoration:none;background:linear-gradient(currentColor,currentColor) 0 100%/0 1.5px no-repeat;transition:background-size var(--t-s) var(--ease-out)}
+.tl:hover,.tl:focus-visible{background-size:100% 1.5px}
+
+/* ---------- Section heading accent line ---------- */
+h2::after{content:"";display:block;width:40px;height:3px;border-radius:2px;margin-top:8px;background:var(--accent);transform-origin:left;transform:scaleX(0)}
+.js h2.in::after{transform:scaleX(1);transition:transform var(--t-m) var(--ease-out) 150ms}
+html:not(.js) h2::after{transform:none}
+
+/* ---------- Page transition (leaving to the app) ---------- */
+.veil{position:fixed;inset:0;background:var(--accent);z-index:10;pointer-events:none;clip-path:circle(0 at var(--vx,50%) var(--vy,50%))}
+.leaving .veil{clip-path:circle(150% at var(--vx,50%) var(--vy,50%));transition:clip-path 650ms var(--ease-in-out)}
+
+/* ---------- Reduced motion: keep meaning, drop movement ---------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:1ms!important;transition-delay:0ms!important;scroll-behavior:auto!important}
+  .js [data-load],.js [data-reveal],.split .w>span{opacity:1!important;transform:none!important}
+  .glow{transform:none!important}
+  .btn{transform:none!important}
+}
 </style>
+<script>document.documentElement.classList.add('js')</script>
 </head>
-<body><main>
-<p>🦋</p>
-<h1>Schmetterlingsfutter</h1>
-<p>Die kostenlose App für Paare – Futter für die Schmetterlinge im Bauch. Kleine Ideen für jeden Tag, damit die Beziehung lebendig bleibt.</p>
-<p><a class="btn" href="https://mojambaauto.github.io/schmetterlingsfutter/">App öffnen</a></p>
+<body>
+<div class="glow" aria-hidden="true"></div>
+<div class="veil" aria-hidden="true"></div>
+<main>
+  <svg class="mark" data-load style="--i:0" viewBox="0 0 64 64" aria-hidden="true">
+    <g class="wing wl"><path d="M32 30C24 14 6 12 8 26c1 8 12 10 24 6z" fill="var(--accent)"/><path d="M32 34C22 36 12 44 18 52c5 6 12-6 14-16z" fill="var(--accent-2)"/></g>
+    <g class="wing wr"><path d="M32 30c8-16 26-18 24-4-1 8-12 10-24 6z" fill="var(--accent)"/><path d="M32 34c10 2 20 10 14 18-5 6-12-6-14-16z" fill="var(--accent-2)"/></g>
+    <rect x="30.5" y="24" width="3" height="20" rx="1.5" fill="var(--fg)"/>
+  </svg>
+  <h1 class="split" data-split>Schmetterlingsfutter</h1>
+  <p data-load style="--i:2">Die kostenlose App für Paare – Futter für die Schmetterlinge im Bauch. Kleine Ideen für jeden Tag, damit die Beziehung lebendig bleibt.</p>
+  <p data-load style="--i:3"><a class="btn" data-magnetic data-leave href="https://mojambaauto.github.io/schmetterlingsfutter/">App öffnen <span class="arrow" aria-hidden="true">→</span></a></p>
 
-<h2>Was die App kann</h2>
-<div class="card"><b>Liebe Worte</b> – Spruch-Generator und kleine Botschaften für zwischendurch.</div>
-<div class="card"><b>Anlässe nie vergessen</b> – Jahrestag, Geburtstag, Valentinstag mit Erinnerung im eigenen Kalender.</div>
-<div class="card"><b>Wünsche sammeln</b> – was sich dein Schatz wünscht, festhalten statt vergessen.</div>
-<div class="card"><b>Gemeinsame Ideen</b> – Erlebnis-, Ausflugs- und Geschenkideen für zwei.</div>
-<div class="card"><b>Euch besser kennen</b> – Love-Map-Fragen und Dankbarkeits-Notizen.</div>
+  <h2 data-reveal>Was die App kann</h2>
+  <div class="card" data-reveal style="--i:0"><span class="ic" aria-hidden="true">💌</span><b>Liebe Worte</b> – Spruch-Generator und kleine Botschaften für zwischendurch.</div>
+  <div class="card" data-reveal style="--i:1"><span class="ic" aria-hidden="true">📅</span><b>Anlässe nie vergessen</b> – Jahrestag, Geburtstag, Valentinstag mit Erinnerung im eigenen Kalender.</div>
+  <div class="card" data-reveal style="--i:2"><span class="ic" aria-hidden="true">🎁</span><b>Wünsche sammeln</b> – was sich dein Schatz wünscht, festhalten statt vergessen.</div>
+  <div class="card" data-reveal style="--i:3"><span class="ic" aria-hidden="true">🎟️</span><b>Gemeinsame Ideen</b> – Erlebnis-, Ausflugs- und Geschenkideen für zwei.</div>
+  <div class="card" data-reveal style="--i:4"><span class="ic" aria-hidden="true">🗺️</span><b>Euch besser kennen</b> – Love-Map-Fragen und Dankbarkeits-Notizen.</div>
 
-<h2>Daten &amp; Werbung</h2>
-<p>Deine Einträge bleiben auf deinem Gerät. Die App ist kostenlos und finanziert sich über gekennzeichnete Partnerlinks (z.&nbsp;B. zu Geschenk- und Erlebnis-Anbietern). Für dich entstehen dadurch keine Mehrkosten.</p>
-<p><a href="https://mojambaauto.github.io/schmetterlingsfutter/privacy.html">Datenschutzerklärung</a></p>
+  <h2 data-reveal>Daten &amp; Werbung</h2>
+  <p data-reveal>Deine Einträge bleiben auf deinem Gerät. Die App ist kostenlos und finanziert sich über gekennzeichnete Partnerlinks (z.&nbsp;B. zu Geschenk- und Erlebnis-Anbietern). Für dich entstehen dadurch keine Mehrkosten.</p>
+  <p data-reveal style="--i:1"><a class="tl" href="https://mojambaauto.github.io/schmetterlingsfutter/privacy.html">Datenschutzerklärung</a></p>
 
-<h2>Kontakt</h2>
-<p>Fragen, Ideen oder Kooperationen: <a href="mailto:info@mojamba.de">info@mojamba.de</a></p>
+  <h2 data-reveal>Kontakt</h2>
+  <p data-reveal>Fragen, Ideen oder Kooperationen: <a class="tl" href="mailto:info@mojamba.de">info@mojamba.de</a></p>
 
-<footer>
-<b>Impressum</b><br>
-MoJamba – Stefan Wilhelm Münch<br>Pelzstr. 30, 53347 Alfter<br>
-E-Mail: info@mojamba.de · USt-IdNr. DE239987756<br>
-<small>© 2026 Schmetterlingsfutter</small>
-</footer>
-</main></body></html>
+  <footer data-reveal>
+    <b>Impressum</b><br>
+    MoJamba – Stefan Wilhelm Münch<br>Pelzstr. 30, 53347 Alfter<br>
+    E-Mail: info@mojamba.de · USt-IdNr. DE239987756<br>
+    <small>© 2026 Schmetterlingsfutter</small>
+  </footer>
+</main>
+<script>
+(()=>{
+  const d=document,root=d.documentElement;
+  const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+  // Headline split into masked words
+  d.querySelectorAll('[data-split]').forEach(el=>{
+    const words=el.textContent.trim().split(/\s+/);
+    el.setAttribute('aria-label',el.textContent.trim());
+    el.innerHTML=words.map((w,i)=>`<span class="w" aria-hidden="true"><span style="--wi:${i}">${w}</span></span>`).join(' ');
+  });
+
+  // Load choreography: start after first paint
+  requestAnimationFrame(()=>requestAnimationFrame(()=>root.classList.add('loaded')));
+
+  // Scroll reveals (once, batched by IntersectionObserver)
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -10% 0px',threshold:.1});
+  d.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+
+  if(still) return;
+
+  // Parallax: one layer, one rAF, transform only
+  const glow=d.querySelector('.glow');let ticking=false;
+  addEventListener('scroll',()=>{if(ticking)return;ticking=true;requestAnimationFrame(()=>{glow.style.setProperty('--py',(scrollY*.25)+'px');ticking=false})},{passive:true});
+
+  // Magnetic button + light follow (fine pointers only)
+  if(fine) d.querySelectorAll('[data-magnetic]').forEach(b=>{
+    b.addEventListener('pointermove',e=>{const r=b.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+      b.style.setProperty('--hx',x+'px');b.style.setProperty('--hy',y+'px');
+      b.style.setProperty('--mx',((x-r.width/2)*.18)+'px');b.style.setProperty('--my',((y-r.height/2)*.25)+'px')});
+    b.addEventListener('pointerleave',()=>{b.style.setProperty('--mx','0px');b.style.setProperty('--my','0px')});
+  });
+
+  // Page transition into the app: veil grows from the click point
+  d.querySelectorAll('[data-leave]').forEach(a=>a.addEventListener('click',e=>{
+    if(e.metaKey||e.ctrlKey||e.shiftKey||e.button)return;
+    e.preventDefault();root.style.setProperty('--vx',e.clientX+'px');root.style.setProperty('--vy',e.clientY+'px');
+    root.classList.add('leaving');setTimeout(()=>location.href=a.href,520);
+  }));
+  // Back/forward cache: drop the veil when returning
+  addEventListener('pageshow',e=>{if(e.persisted)root.classList.remove('leaving')});
+})();
+</script>
+</body></html>
