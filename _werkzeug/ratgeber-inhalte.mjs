@@ -206,4 +206,111 @@ function next(){var k;do{k=Math.floor(Math.random()*Q.length)}while(k===last&&Q.
 b.addEventListener('click',next);next();})();`,
 };
 
-export const PAGES = [geschenke, valentin, fragen];
+const C = 'https://thumb.wikimedia.org/wikipedia/commons/thumb/';
+const ARTEN = [
+  { id: 'kohlweissling', name: 'Kleiner Kohlweißling', lat: 'Pieris rapae', img: C + '3/3c/Pieris.rapae.6834.jpg/960px-Pieris.rapae.6834.jpg', w: 640, h: 640, by: 'Olaf Leillinger', lic: 'CC BY-SA 3.0', file: 'Pieris.rapae.6834.jpg',
+    erk: 'Weiß, Vorderflügelspitzen grau, ein bis zwei dunkle Punkte.', flug: 'Etwa März bis Oktober, in mehreren Generationen.', futter: 'Kohl und andere Kreuzblütler, auch Kapuzinerkresse.',
+    fakt: 'Einer der häufigsten Tagfalter in Gärten – und oft der erste, den Kinder „Schmetterling“ nennen.' },
+  { id: 'zitronenfalter', name: 'Zitronenfalter', lat: 'Gonepteryx rhamni', img: 'https://upload.wikimedia.org/wikipedia/commons/a/a6/Zitronenfalter_auf_Sommerflieder.jpg', w: 640, h: 535, by: 'Arieswings', lic: 'CC BY-SA 4.0', file: 'Zitronenfalter_auf_Sommerflieder.jpg',
+    erk: 'Männchen leuchtend zitronengelb, Weibchen blass grünlich-weiß; Flügel mit kleiner Spitze und einem orangen Punkt.', flug: 'Ab Juli; nach dem Winter schon ab Februar oder März bis in den Frühsommer.', futter: 'Faulbaum und Kreuzdorn.',
+    fakt: 'Sitzt fast immer mit zugeklappten Flügeln, überwintert ungeschützt im Freien und wird rund ein Jahr alt – so alt wie kaum ein anderer Falter bei uns.' },
+  { id: 'blaeuling', name: 'Hauhechel-Bläuling', lat: 'Polyommatus icarus', img: C + 'c/c7/Polyommatus_icarus_%28male%29_-_Niitv%C3%A4lja.jpg/960px-Polyommatus_icarus_%28male%29_-_Niitv%C3%A4lja.jpg', w: 640, h: 800, by: 'Ivar Leidus', lic: 'CC BY-SA 4.0', file: 'Polyommatus_icarus_(male)_-_Niitvälja.jpg',
+    erk: 'Männchen oben himmelblau, Weibchen meist braun mit orangen Randflecken; Unterseite mit vielen kleinen Augenpunkten.', flug: 'Etwa Mai bis September.', futter: 'Hornklee, Hauhechel und andere Schmetterlingsblütler.',
+    fakt: 'Die Raupen werden oft von Ameisen umsorgt: Sie geben eine süße Flüssigkeit ab, und die Ameisen halten dafür Feinde fern.' },
+  { id: 'kleiner-fuchs', name: 'Kleiner Fuchs', lat: 'Aglais urticae', img: C + '3/35/Kleiner_Fuchs%2C_Aglais_urticae.JPG/960px-Kleiner_Fuchs%2C_Aglais_urticae.JPG', w: 640, h: 443, by: 'Böhringer Friedrich', lic: 'CC BY-SA 2.5', file: 'Kleiner_Fuchs,_Aglais_urticae.JPG',
+    erk: 'Orange mit schwarzen und gelben Flecken am Vorderrand und einer Reihe blauer Randflecken.', flug: 'Vom zeitigen Frühjahr bis in den Herbst.', futter: 'Brennnessel.',
+    fakt: 'Überwintert als fertiger Falter, gern in Schuppen, Kellern und auf Dachböden – darum gehört er zu den ersten Schmetterlingen im Jahr.' },
+  { id: 'tagpfauenauge', name: 'Tagpfauenauge', lat: 'Aglais io', img: C + '4/48/Tagpfauenauge_Aglais_io.jpg/960px-Tagpfauenauge_Aglais_io.jpg', w: 640, h: 427, by: 'Morbakka', lic: 'CC BY-SA 4.0', file: 'Tagpfauenauge_Aglais_io.jpg',
+    erk: 'Rotbraun mit vier großen, bunt schillernden Augenflecken; Unterseite fast schwarz.', flug: 'Im Frühling nach der Überwinterung und wieder ab Juli.', futter: 'Brennnessel – die schwarzen, bedornten Raupen leben in Gruppen.',
+    fakt: 'Zugeklappt sieht er aus wie ein welkes Blatt. Klappt er die Flügel plötzlich auf, erschrecken Vögel vor den „Augen“.' },
+  { id: 'admiral', name: 'Admiral', lat: 'Vanessa atalanta', img: C + '2/24/VanessaAtalanta_Closeup.jpg/960px-VanessaAtalanta_Closeup.jpg', w: 640, h: 427, by: 'Christian Fischer', lic: 'CC BY-SA 4.0', file: 'VanessaAtalanta_Closeup.jpg',
+    erk: 'Samtschwarz mit leuchtend roter Binde und weißen Flecken an den Flügelspitzen.', flug: 'Etwa Mai bis Oktober, im Spätsommer gern an Fallobst.', futter: 'Brennnessel.',
+    fakt: 'Ein Wanderfalter: Viele kommen im Frühjahr aus dem Süden zu uns, ihre Nachkommen ziehen im Herbst zurück. In milden Wintern bleiben inzwischen auch einige hier.' },
+  { id: 'schwalbenschwanz', name: 'Schwalbenschwanz', lat: 'Papilio machaon', img: C + 'c/c4/Papilio_Machaon_imago_01.jpeg/960px-Papilio_Machaon_imago_01.jpeg', w: 640, h: 425, by: 'hamon jp', lic: 'CC BY-SA 3.0', file: 'Papilio_Machaon_imago_01.jpeg',
+    erk: 'Groß, gelb mit schwarzer Zeichnung, blauem Band, rotem Augenfleck und „Schwänzchen“ an den Hinterflügeln.', flug: 'Etwa April bis August, in ein bis zwei Generationen.', futter: 'Doldenblütler wie Wilde Möhre, Dill und Fenchel.',
+    fakt: 'Einer der größten Tagfalter Deutschlands und besonders geschützt. Bei Gefahr streckt die Raupe eine orange, streng riechende „Nackengabel“ aus.' },
+  { id: 'distelfalter', name: 'Distelfalter', lat: 'Vanessa cardui', img: C + '9/9f/Distelfalter-JR-A40-613-2009-05-24.jpg/960px-Distelfalter-JR-A40-613-2009-05-24.jpg', w: 640, h: 428, by: 'Johannes Robalotoff', lic: 'CC BY-SA 3.0 de', file: 'Distelfalter-JR-A40-613-2009-05-24.jpg',
+    erk: 'Orange-braun mit schwarzen Flecken; Vorderflügelspitzen schwarz mit weißen Punkten.', flug: 'Je nach Jahr ab Mai – in manchen Jahren in riesigen Mengen.', futter: 'Disteln, auch Brennnessel und Malven.',
+    fakt: 'Wandert jedes Jahr aus Nordafrika bis weit in den Norden Europas und zurück – rund 12.000 Kilometer, verteilt auf mehrere Generationen.' },
+];
+
+const arten = {
+  slug: 'schmetterlingsarten', ic: '🦋', crumb: 'Schmetterlingsarten in Deutschland', date: '2026-11-13', month: 'November 2026',
+  title: 'Schmetterlingsarten in Deutschland: 8 Falter erkennen – mit Bildern | Schmetterlingsfutter',
+  desc: 'Die bekanntesten Schmetterlingsarten in Deutschland mit Bildern: Tagpfauenauge, Zitronenfalter, Admiral, Kleiner Fuchs und mehr – woran du sie erkennst, wann sie fliegen und was ihre Raupen fressen.',
+  h1: 'Schmetterlingsarten in Deutschland',
+  ogTitle: '8 Schmetterlinge, die du in Deutschland kennen solltest',
+  lead: 'Acht Falter, die du im Garten, im Park und auf der Wiese triffst: woran du sie erkennst, wann sie fliegen und was ihre Raupen fressen. Alle acht flattern auch durch unsere Paar-App.',
+  sections: [
+    { id: 'wie-viele', ic: '🔢', jump: 'Wie viele?', h: 'Wie viele Schmetterlingsarten gibt es?', intro: 'Weltweit sind rund <b>180.000 Schmetterlingsarten</b> beschrieben. In Deutschland leben etwa <b>3.700</b> – die allermeisten davon sind Nachtfalter. Tagfalter gibt es bei uns nur rund <b>190 Arten</b>. Die acht hier gehören zu denen, die du am ehesten zu sehen bekommst.' },
+    { id: 'die-acht', ic: '🦋', jump: 'Die 8 Falter', h: '8 Falter erkennen', arten: ARTEN },
+    { id: 'garten', ic: '🌼', jump: 'Im Garten', h: 'So kommen Schmetterlinge in euren Garten', steps: [
+      '<b>Eine Brennnessel-Ecke stehen lassen.</b> Tagpfauenauge, Kleiner Fuchs und Admiral legen dort ihre Eier ab.',
+      '<b>Heimische Blüten pflanzen</b> wie Dost, Thymian, Natternkopf oder Flockenblume – sie liefern Nektar vom Frühling bis in den Herbst.',
+      '<b>Im Herbst nicht alles abschneiden.</b> In hohlen Stängeln und im Laub überwintern Eier, Raupen und Puppen.',
+      '<b>Auf Gift verzichten.</b> Was Blattläuse trifft, trifft auch Raupen.',
+      '<b>Fallobst liegen lassen.</b> Admiral und Co. naschen im Spätsommer gern daran.',
+    ], fact: 'Schmetterlinge schmecken mit den Füßen: Landet ein Falter auf einer Blüte, weiß er sofort, ob sich das Naschen lohnt.' },
+    { id: 'entdecken', ic: '🔍', jump: 'Entdecken', h: 'Zum Entdecken zu zweit', ideas: [
+      { t: 'Saatgut für eine Schmetterlingswiese', price: U25, p: 'Ein Quadratmeter reicht schon. Säen, warten, gemeinsam zählen, wer zu Besuch kommt.', q: 'Saatgut Schmetterlingswiese heimisch' },
+      { t: 'Bestimmungsbuch für Schmetterlinge', price: U25, p: 'Für Spaziergänge, bei denen ihr endlich wisst, wer da vorbeiflattert.', q: 'Schmetterlinge bestimmen Buch' },
+      { t: 'Falter fangen – nur virtuell', p: 'In der App sammelt ihr die acht Arten bei der Falterjagd draußen und auf der Heide, ganz ohne Kescher.', app: 'Falterjagd starten' },
+    ] },
+  ],
+  app: { h: 'Alle acht Falter fliegen auch in der App', p: 'In <b>Schmetterlingsfutter</b> fangt ihr sie zu zweit, füllt euer Schmetterlingsbuch und füttert euren eigenen Falter mit kleinen Liebesgesten. Kostenlos.', btn: 'App kostenlos öffnen' },
+  faq: [
+    ['Wie viele Schmetterlingsarten gibt es in Deutschland?', 'Etwa 3.700 Arten, davon nur rund 190 Tagfalter. Der große Rest sind Nachtfalter, die tagsüber gut versteckt ruhen.'],
+    ['Welche Schmetterlinge sieht man im Frühjahr zuerst?', 'Zitronenfalter, Kleiner Fuchs und Tagpfauenauge. Sie überwintern als fertige Falter und fliegen schon an den ersten warmen Tagen, oft im Februar oder März.'],
+    ['Woran erkennt man Tagfalter und Nachtfalter?', 'Ein guter Hinweis sind die Fühler: Tagfalter haben dünne Fühler mit einer kleinen Keule am Ende. Bei Nachtfaltern sind sie oft fadenförmig oder gefiedert.'],
+    ['Darf man Schmetterlinge fangen?', 'Viele Arten stehen unter Naturschutz, zum Beispiel der Schwalbenschwanz. Am besten nur anschauen und fotografieren – und nicht anfassen, denn die Flügelschuppen gehen leicht ab.'],
+    ['Wie alt werden Schmetterlinge?', 'Die meisten Falter leben nur wenige Wochen. Arten, die als Falter überwintern, werden deutlich älter – der Zitronenfalter rund ein Jahr.'],
+  ],
+};
+
+const bauch = {
+  slug: 'schmetterlinge-im-bauch', ic: '💓', crumb: 'Schmetterlinge im Bauch', date: '2026-11-13', month: 'November 2026',
+  title: 'Schmetterlinge im Bauch: Was dahintersteckt – und wie das Gefühl bleibt | Schmetterlingsfutter',
+  desc: 'Was bedeutet „Schmetterlinge im Bauch“, was passiert dabei im Körper und wie lange hält das Gefühl? Mit Tipps, wie ihr es zurückholt, und Sprüchen zum Verschicken.',
+  h1: 'Schmetterlinge im Bauch',
+  ogTitle: 'Schmetterlinge im Bauch: Was dahintersteckt',
+  lead: 'Das Kribbeln, wenn eine Nachricht kommt. Das Flattern, wenn der andere lacht. Was dabei im Körper passiert – und wie ihr die Schmetterlinge auch nach Jahren noch füttert.',
+  sections: [
+    { id: 'koerper', ic: '🧪', jump: 'Im Körper', h: 'Was im Körper passiert', steps: [
+      '<b>Alarm, aber ein schöner.</b> Bei Verliebtheit schüttet der Körper Stresshormone wie Adrenalin aus. Das Herz schlägt schneller, die Hände werden feucht.',
+      '<b>Der Bauch fährt kurz herunter.</b> In Aufregung wird die Verdauung gebremst und das Blut anders verteilt. Genau das spüren wir als Flattern und Kribbeln.',
+      '<b>Das Gehirn feiert.</b> Das Belohnungssystem schüttet Dopamin aus – darum denken Verliebte ständig an den anderen.',
+      '<b>Der Bauch fühlt mit.</b> Der Darm hat ein eigenes, dichtes Nervengeflecht und reagiert stark auf Gefühle. Daher kommt auch das „Bauchgefühl“.',
+    ] },
+    { id: 'herkunft', ic: '🗣️', jump: 'Bedeutung', h: 'Was die Redewendung bedeutet', intro: '„Schmetterlinge im Bauch haben“ heißt: verliebt sein, aufgeregt und voller Vorfreude. Das Bild passt gut – das Kribbeln fühlt sich an wie unzählige kleine Flügel. Im Englischen gibt es fast dieselbe Redewendung: <i>to have butterflies in your stomach</i>. Dort meint sie aber oft einfach Lampenfieber, zum Beispiel vor einer Prüfung.' },
+    { id: 'wie-lange', ic: '⏳', jump: 'Wie lange?', h: 'Wie lange halten die Schmetterlinge?', intro: 'Die stürmische Verliebtheit dauert meist einige Monate bis etwa zwei Jahre – Fachleute schätzen das unterschiedlich. Danach wird aus Aufregung Vertrautheit. Das ist kein Verlust: Nähe, Berührung und gemeinsame Zeit setzen das Bindungshormon Oxytocin frei. Die Schmetterlinge fliegen dann ruhiger, aber sie bleiben – wenn man sie füttert.', fact: 'Auch echte Falter brauchen Zeit: In der Puppe löst sich der Körper der Raupe weitgehend auf und wird ganz neu gebaut.' },
+    { id: 'fuettern', ic: '🦋', jump: 'Zurückholen', h: 'So füttert ihr eure Schmetterlinge', steps: [
+      '<b>Gemeinsam Neues erleben.</b> Studien zeigen: Wer zusammen Neues und Aufregendes unternimmt, fühlt sich danach verbundener. Ein neues Restaurant, ein Ausflug, ein Kurs.',
+      '<b>Kleine Überraschungen.</b> Ein Zettel in der Jackentasche, eine Nachricht mitten am Tag.',
+      '<b>Fragen stellen.</b> Auch nach Jahren gibt es Neues zu entdecken – unsere <a href="/fragen-fuer-paare/">70 Fragen für Paare</a> helfen dabei.',
+      '<b>Berührung.</b> Umarmungen, Hand halten, Massage – das setzt Oxytocin frei.',
+      '<b>Danke sagen.</b> Wer sich gesehen fühlt, verliebt sich immer wieder ein bisschen neu.',
+      '<b>Zeit ohne Handy.</b> Eine Stunde am Abend nur für euch.',
+    ] },
+    { id: 'sprueche', ic: '💌', jump: 'Sprüche', h: 'Sprüche über Schmetterlinge im Bauch', spr: [
+      'Seit du da bist, nehmen meine Schmetterlinge Flugstunden.', 'Du bist der Grund, warum in meinem Bauch immer Frühling ist.', 'Meine Schmetterlinge fliegen nur auf dich.',
+      'Jedes Lächeln von dir ist Futter für meine Schmetterlinge.', 'Andere haben Hunger. Ich habe Schmetterlinge.', 'Jahre später – und die Schmetterlinge sind immer noch nicht ausgezogen.',
+      'Wenn du mich ansiehst, hebt in meinem Bauch ein ganzer Schwarm ab.', 'Ich bin nicht nervös. Das sind nur die Schmetterlinge.',
+    ] },
+    { id: 'echte-falter', ic: '🌿', jump: 'Echte Falter', h: 'Und die echten Schmetterlinge?', intro: 'In Deutschland leben rund 3.700 Schmetterlingsarten. Woran du Tagpfauenauge, Zitronenfalter und Admiral erkennst, steht bei unseren <a href="/schmetterlingsarten/">Schmetterlingsarten mit Bildern</a>.', fact: 'Die Männchen des Kleinen Nachtpfauenauges können den Duft eines Weibchens noch aus mehreren Kilometern Entfernung wahrnehmen. Auch Falter wissen, wann es knistert.' },
+    { id: 'verschenken', ic: '🎁', h: 'Schmetterlinge zum Verschenken', ideas: [
+      { t: 'Kette mit Schmetterling', price: M, p: 'Ein kleiner Anhänger als Erinnerung an das Kribbeln vom Anfang.', q: 'Kette Schmetterling Silber' },
+      { t: 'Eine Wiese für echte Falter', price: U25, p: 'Saatgut für eine Schmetterlingswiese – gemeinsam säen und zusehen, wer einzieht.', q: 'Saatgut Schmetterlingswiese heimisch' },
+      { t: 'Liebesgedicht als Motiv', price: M, p: 'Goethe, Heine und Rilke, gestaltet im Schmetterlingsfutter-Shop.', href: 'https://schmetterlingsfutter-poesie.myspreadshop.de', label: 'Zum Poesie-Shop' },
+    ] },
+  ],
+  app: { h: 'Futter für eure Schmetterlinge – jeden Tag', p: 'Genau dafür gibt es <b>Schmetterlingsfutter</b>: kleine Ideen, liebe Botschaften und Spiele zu zweit, damit das Kribbeln bleibt. Kostenlos.', btn: 'App kostenlos öffnen' },
+  faq: [
+    ['Was bedeutet „Schmetterlinge im Bauch“?', 'Die Redewendung beschreibt das Gefühl, frisch verliebt zu sein: aufgeregt, voller Vorfreude, mit einem Kribbeln im Bauch.'],
+    ['Warum kribbelt es im Bauch, wenn man verliebt ist?', 'Der Körper schüttet Stresshormone wie Adrenalin aus. Die Verdauung wird kurz gebremst und das Blut anders verteilt – das spüren wir als Flattern.'],
+    ['Wie heißt „Schmetterlinge im Bauch“ auf Englisch?', '„To have butterflies in your stomach“. Im Englischen meint man damit aber häufig auch Nervosität, etwa vor einem Auftritt.'],
+    ['Kann man die Schmetterlinge zurückholen?', 'Ja, zumindest ein Stück weit: gemeinsame neue Erlebnisse, kleine Überraschungen, Berührung und echte Gespräche wecken das Kribbeln immer wieder.'],
+    ['Sind Schmetterlinge im Bauch dasselbe wie Liebe?', 'Nicht ganz. Das Kribbeln gehört zur Verliebtheit am Anfang. Liebe ist das, was danach bleibt – ruhiger, tiefer und genauso schön.'],
+  ],
+};
+
+export const PAGES = [geschenke, valentin, fragen, bauch, arten];

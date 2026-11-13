@@ -76,6 +76,29 @@ h3{font-size:20px;line-height:1.35;color:var(--text);font-weight:700;margin-bott
   background:rgba(155,93,229,.14);border-left:3px solid #b38cf0;font-size:18px}
 .fact .fic{font-size:24px;line-height:1.2}
 
+/* Falter-Steckbriefe */
+.arten{list-style:none;display:flex;flex-direction:column;gap:18px;margin-top:18px}
+.art{background:var(--glass);border:.5px solid var(--line);border-radius:var(--radius);overflow:hidden;scroll-margin-top:16px}
+@media (min-width:640px){.art{display:grid;grid-template-columns:260px 1fr}}
+.art figure{margin:0;background:#120714}
+.art img{display:block;width:100%;height:220px;object-fit:cover}
+@media (min-width:640px){.art img{height:100%;min-height:240px}}
+.art-body{padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.art h3 i{font-weight:400;color:var(--text-muted);font-size:17px;margin-left:.2em}
+.steck{display:flex;flex-direction:column;gap:6px}
+.steck div{font-size:18px}
+.steck dt{color:var(--accent-2);font-weight:700;font-size:16px}
+@media (min-width:520px){.steck div{display:grid;grid-template-columns:7.2em 1fr;gap:8px}.steck dt{font-size:18px}}
+.steck dd{margin:0}
+.credit{font-size:16px;color:var(--text-muted)}
+.credit a{color:var(--text-muted)}
+
+/* Sprüche */
+.spr{list-style:none;display:grid;grid-template-columns:1fr;gap:12px;margin-top:16px}
+@media (min-width:640px){.spr{grid-template-columns:1fr 1fr}}
+.spr li{display:flex;flex-direction:column;gap:10px;justify-content:space-between;background:var(--glass);border:.5px solid var(--line);border-radius:var(--radius-s);padding:16px 18px}
+.spr p{font-family:var(--serif);font-style:italic;font-size:21px;line-height:1.35;color:var(--text)}
+
 /* App-Hinweis */
 .appbox{margin-top:40px;padding:22px;border-radius:var(--radius);border:1px solid var(--accent-2);
   background:linear-gradient(160deg,rgba(255,100,150,.16),rgba(155,93,229,.10));box-shadow:0 14px 34px -18px var(--glow)}

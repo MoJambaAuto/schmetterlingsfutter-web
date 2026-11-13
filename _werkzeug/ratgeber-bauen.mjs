@@ -23,12 +23,23 @@ function idea(it) {
   const extra = it.also ? `<a class="buy app" href="${esc(it.also.href)}">${esc(it.also.label)} →</a>` : '';
   return `<li class="idea"><h3>${it.t}</h3>${it.price ? `<span class="price">${esc(it.price)}</span>` : ''}<p>${it.p}</p>${link(it)}${extra}</li>`;
 }
+const LIC = { 'CC BY-SA 2.5': 'https://creativecommons.org/licenses/by-sa/2.5/deed.de', 'CC BY-SA 3.0': 'https://creativecommons.org/licenses/by-sa/3.0/deed.de',
+  'CC BY-SA 3.0 de': 'https://creativecommons.org/licenses/by-sa/3.0/de/deed.de', 'CC BY-SA 4.0': 'https://creativecommons.org/licenses/by-sa/4.0/deed.de' };
+function art(a) {
+  if (!LIC[a.lic]) throw new Error('Lizenz fehlt in LIC: ' + a.lic);
+  const row = (k, v) => `<div><dt>${k}</dt><dd>${v}</dd></div>`;
+  return `<li class="art" id="${a.id}"><figure><img src="${esc(a.img)}" width="${a.w}" height="${a.h}" loading="lazy" decoding="async" alt="${esc(a.name)} (${esc(a.lat)})"></figure>
+<div class="art-body"><h3>${esc(a.name)} <i>${esc(a.lat)}</i></h3><dl class="steck">${row('Erkennen', a.erk)}${row('Fliegt', a.flug)}${row('Raupe frisst', a.futter)}</dl><p>${a.fakt}</p>
+<small class="credit">Foto: ${esc(a.by)}, <a href="${LIC[a.lic]}" target="_blank" rel="noopener license">${esc(a.lic)}</a>, <a href="https://commons.wikimedia.org/wiki/File:${esc(a.file)}" target="_blank" rel="noopener">Wikimedia Commons</a></small></div></li>`;
+}
 function section(s) {
   let body = '';
   if (s.intro) body += `<p>${s.intro}</p>`;
   if (s.ideas) body += `<ul class="ideas">${s.ideas.map(idea).join('')}</ul>`;
   if (s.steps) body += `<ol class="steps">${s.steps.map((x) => `<li><span>${x}</span></li>`).join('')}</ol>`;
   if (s.qs) body += `<ol class="qs" start="1">${s.qs.map((x) => `<li>${esc(x)}</li>`).join('')}</ol>`;
+  if (s.arten) body += `<ul class="arten">${s.arten.map(art).join('')}</ul>`;
+  if (s.spr) body += `<ul class="spr">${s.spr.map((x) => `<li><p>„${esc(x)}“</p><a class="buy app" href="https://wa.me/?text=${encodeURIComponent('„' + x + '“ 🦋')}" target="_blank" rel="noopener">Per WhatsApp schicken →</a></li>`).join('')}</ul>`;
   if (s.html) body += s.html;
   if (s.fact) body += `<aside class="fact"><span class="fic" aria-hidden="true">🦋</span><p><b>Falter-Wissen:</b> ${s.fact}</p></aside>`;
   return `<section id="${s.id}"><h2><span class="ic" aria-hidden="true">${s.ic}</span>${s.h}</h2>${body}</section>`;
