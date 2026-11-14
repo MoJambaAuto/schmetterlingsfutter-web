@@ -11,10 +11,12 @@ const TAG = 'schmetterlingsfutter-21';
 const APP = 'https://app.schmetterlingsfutter.de/';
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const strip = (s) => String(s).replace(/<[^>]+>/g, '');
-const amazon = (q) => 'https://www.amazon.de/s?k=' + encodeURIComponent(q).replace(/%20/g, '+') + '&tag=' + TAG;
+// max = Preisfilter in Cent (optional): setzt bei Amazon &rh=p_36%3A-<max>, also nur Treffer bis zu diesem Betrag.
+const amazon = (q, max) => 'https://www.amazon.de/s?k=' + encodeURIComponent(q).replace(/%20/g, '+')
+  + (max > 0 ? '&rh=p_36%3A-' + Math.round(max) : '') + '&tag=' + TAG;
 
 function link(it) {
-  if (it.q) return `<a class="buy" href="${esc(amazon(it.q))}" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a>`;
+  if (it.q) return `<a class="buy" href="${esc(amazon(it.q, it.max))}" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a>`;
   if (it.app) return `<a class="buy app" href="${APP}">${esc(it.app)} →</a>`;
   if (it.href) return `<a class="buy" href="${esc(it.href)}"${/^https?:/.test(it.href) ? ' target="_blank" rel="noopener"' : ''}>${esc(it.label)} →</a>`;
   return '';
@@ -109,7 +111,7 @@ ${p.sections.map(section).join('\n')}
 <section><h2><span class="ic" aria-hidden="true">🦋</span>Mehr Ideen für euch</h2>
 <ul class="more">${others.map((o) => `<li><a href="/${o.slug}/"><span aria-hidden="true">${o.ic}</span>${esc(o.crumb)}</a></li>`).join('')}<li><a href="/"><span aria-hidden="true">📲</span>Die Paar-App Schmetterlingsfutter</a></li></ul>
 </section>
-<p class="disclose">* Partnerlink: Kaufst du darüber ein, bekommen wir eine kleine Provision. Am Preis ändert sich für dich nichts. Als Amazon-Partner verdienen wir an qualifizierten Verkäufen. Die Ideen wählen wir selbst aus, Preise sind ungefähre Spannen.</p>
+<p class="disclose">* Partnerlink: Kaufst du darüber ein, bekommen wir eine kleine Provision. Am Preis ändert sich für dich nichts. Als Amazon-Partner verdienen wir an qualifizierten Verkäufen. Die Ideen wählen wir selbst aus. Budget-Angaben sind grobe Einordnungen, keine Preise.</p>
 </main>
 <footer>
   <div class="links"><a href="/">Startseite</a>${PAGES.map((o) => `<a href="/${o.slug}/">${esc(o.crumb)}</a>`).join('')}<a href="${APP}privacy.html">Datenschutz</a><a href="/#impressum">Impressum</a></div>

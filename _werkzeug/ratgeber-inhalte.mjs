@@ -1,15 +1,16 @@
 // Inhalte der Ratgeber-Seiten. Nach Änderungen: node _werkzeug/ratgeber-bauen.mjs
-// Ideen: t = Titel, p = Satz, price = Spanne, q = Amazon-Suchbegriff (Partnerlink), app = Knopftext in die App,
+// Ideen: t = Titel, p = Satz, price = Budget-Wort (keine Euro-Beträge), q = Amazon-Suchbegriff (Partnerlink),
+// max = Preisfilter des Amazon-Links in Cent (optional), app = Knopftext in die App,
 // href/label = eigener Link, also = zweiter Link. In Texten ist einfaches HTML erlaubt.
 export const SITE = 'https://schmetterlingsfutter.de';
-const U25 = 'unter 25 €', M = '25–60 €', O60 = 'über 60 €';
+const U25 = 'kleines Budget', M = 'mittleres Budget', O60 = 'größeres Budget';
 
 const geschenke = {
   slug: 'geschenkideen-freundin-freund', ic: '🎁', crumb: 'Geschenkideen für Freundin & Freund', date: '2026-11-13', month: 'November 2026',
   title: 'Geschenkideen für Freundin & Freund: 33 Ideen mit Herz | Schmetterlingsfutter',
   desc: 'Persönliche Geschenkideen für deine Freundin oder deinen Freund – von der Sternenkarte bis zum Erlebnis für zwei, nach Budget sortiert. Mit Tipps, wie du das Richtige findest.',
   h1: 'Geschenkideen für Freundin und Freund',
-  lead: 'Das beste Geschenk sagt: <b>Ich höre dir zu.</b> Hier sind Ideen, die persönlich wirken – für sie, für ihn und für euch beide, mit grober Preisspanne.',
+  lead: 'Das beste Geschenk sagt: <b>Ich höre dir zu.</b> Hier sind Ideen, die persönlich wirken – für sie, für ihn und für euch beide, nach Budget sortiert.',
   sections: [
     { id: 'persoenlich', ic: '💞', jump: 'Persönlich', h: 'Persönlich und mit Erinnerung', fact: "Der Zitronenfalter wird rund ein Jahr alt – so alt wie kaum ein anderer Schmetterling bei uns. Die meisten Falter leben nur wenige Wochen.", ideas: [
       { t: 'Sternenkarte von eurem Tag', price: M, p: 'Der Himmel genau so, wie er am Abend eures Kennenlernens oder eurer Hochzeit aussah – mit Datum und Ort.', q: 'Sternenkarte personalisiert' },
@@ -42,7 +43,7 @@ const geschenke = {
       { t: 'Escape-Spiel für zu Hause', price: U25, p: 'Rätseln unter Zeitdruck zeigt, wie gut ihr als Team seid – ganz ohne Anfahrt.', q: 'Escape Room Spiel für zwei' },
       { t: 'Ausflug nach euren Interessen', p: 'In der App findet ihr Erlebnis- und Ausflugsideen, die zu dem passen, was ihr beide mögt.', app: 'Ideen in der App' },
     ] },
-    { id: 'kleines-budget', ic: '🪙', jump: 'Unter 25 €', h: 'Kleines Budget, große Wirkung', fact: "Schmetterlinge schmecken mit den Füßen. Landet ein Falter auf einer Blüte, weiß er sofort, ob sich das Naschen lohnt.", ideas: [
+    { id: 'kleines-budget', ic: '🪙', jump: 'Kleines Budget', h: 'Kleines Budget, große Wirkung', fact: "Schmetterlinge schmecken mit den Füßen. Landet ein Falter auf einer Blüte, weiß er sofort, ob sich das Naschen lohnt.", ideas: [
       { t: 'Fragekarten für Paare', price: U25, p: 'Für Abende ohne Handy – und für Antworten, mit denen ihr beide nicht gerechnet habt.', q: 'Fragekarten für Paare', also: { href: '/fragen-fuer-paare/', label: '70 Fragen gratis' } },
       { t: 'Pärchen-Tassen', price: U25, p: 'Zwei Tassen, die nur zusammen ein Bild ergeben. Der Kaffee am Morgen wird zum kleinen Ritual.', q: 'Pärchen Tassen Set' },
       { t: 'Collage-Bilderrahmen', price: U25, p: 'Druck eure zehn schönsten Handyfotos aus und gib ihnen endlich einen Platz an der Wand.', q: 'Bilderrahmen Collage mehrere Bilder' },
@@ -313,4 +314,69 @@ const bauch = {
   ],
 };
 
-export const PAGES = [geschenke, valentin, fragen, bauch, arten];
+// Wichtel-Seite (Amazon-Engine AE-01). Ideen aus der Startliste in amazon-engine/bauplan.yaml.
+// max = Preisfilter des Links in Cent; die Seite nennt keine Produktpreise.
+const TOP_WICHTELN = `<div class="budget"><p><b>Schnell-Suche bei Amazon:</b></p>
+<a class="buy" href="https://www.amazon.de/s?k=wichtelgeschenk+lustig&amp;rh=p_36%3A-500&amp;tag=schmetterlingsfutter-21" target="_blank" rel="sponsored noopener">bis 5 Euro *</a>
+<a class="buy" href="https://www.amazon.de/s?k=wichtelgeschenk+lustig&amp;rh=p_36%3A-1000&amp;tag=schmetterlingsfutter-21" target="_blank" rel="sponsored noopener">bis 10 Euro *</a>
+<a class="buy" href="https://www.amazon.de/s?k=wichtelgeschenk+lustig&amp;rh=p_36%3A-1500&amp;tag=schmetterlingsfutter-21" target="_blank" rel="sponsored noopener">bis 15 Euro *</a>
+<a class="buy" href="https://www.amazon.de/s?k=wichtelgeschenk+lustig&amp;rh=p_36%3A-2000&amp;tag=schmetterlingsfutter-21" target="_blank" rel="sponsored noopener">bis 20 Euro *</a>
+</div>`;
+
+const wichteln = {
+  slug: 'wichtelgeschenke', ic: '🎅', crumb: 'Lustige Wichtelgeschenke', date: '2026-11-14', month: 'November 2026',
+  title: 'Lustige Wichtelgeschenke bis 10, 15 und 20 Euro | Schmetterlingsfutter',
+  desc: 'Lustige Wichtelgeschenke für Kollegen, Freunde und Familie: kuriose Ideen bis 10, 15 und 20 Euro und herrlich Nutzloses fürs Schrottwichteln.',
+  h1: 'Lustige Wichtelgeschenke',
+  lead: 'Wichteln soll Spaß machen, nicht stressen. Hier sind <b>kuriose Ideen</b>, über die am Tisch gelacht wird – sortiert nach Budget.',
+  top: TOP_WICHTELN,
+  sections: [
+    { id: 'bis-10', ic: '🎁', jump: 'Bis 10 Euro', h: 'Wichtelgeschenke bis 10 Euro',
+      intro: 'Klein, albern, sofort einsatzbereit. Die Links zeigen bei Amazon nur Treffer bis 10 Euro.', ideas: [
+      { t: 'Schneeballzange', p: 'Formt Schneebälle wie vom Fließband. Kalte Finger gibt es nur noch beim Gegner.', q: 'Schneeballzange', max: 1000 },
+      { t: 'Sudoku-Toilettenpapier', p: 'Rätsel auf jedem Blatt. Für Sitzungen, die länger dauern.', q: 'Toilettenpapier Sudoku', max: 1000 },
+      { t: 'Quietsche-Huhn', p: 'Ein Gummihuhn, das beim Drücken empört schreit. Hebt jede Stimmung, außer die des Sitznachbarn.', q: 'Gummihuhn quietschend', max: 1000 },
+      { t: 'Teesieb als Faultier', p: 'Das Faultier hängt am Tassenrand und lässt den Tee für sich arbeiten.', q: 'Teesieb Faultier', max: 1000 },
+      { t: 'Mini-Fingerhände', p: 'Winzige Hände zum Aufstecken auf die Finger. Sinnlos und sofort im Einsatz.', q: 'Fingerhände Fingerpuppen', max: 1000 },
+      { t: 'Bananenschneider', p: 'Schneidet eine Banane mit einem Druck in gleiche Scheiben. Ein Werkzeug für ein Problem, das niemand hatte.', q: 'Bananenschneider', max: 1000 },
+      { t: 'Eiswürfelform als Gehirn', p: 'Eiswürfel in Hirnform. Kühlt das Getränk und irritiert die Gäste.', q: 'Eiswürfelform Gehirn', max: 1000 },
+      { t: 'Handyhalter als Liegestuhl', p: 'Das Telefon liegt im winzigen Strandstuhl. Urlaub für das Gerät, wenn schon nicht für den Besitzer.', q: 'Handyhalter Liegestuhl', max: 1000 },
+    ] },
+    { id: 'bis-15', ic: '🎁', jump: 'Bis 15 Euro', h: 'Wichtelgeschenke bis 15 Euro',
+      intro: 'Etwas mehr Budget, deutlich mehr Gelächter. Die Links zeigen bei Amazon nur Treffer bis 15 Euro.', ideas: [
+      { t: 'Notfall-Unterhose in der Dose', p: 'Eine Unterhose, verpackt wie eine Konserve. Der Witz steht schon auf der Dose.', q: 'Notfall Unterhose Dose', max: 1500 },
+      { t: 'Taco-Halter in Dinosaurier-Form', p: 'Ein Dinosaurier, der zwei Tacos auf dem Rücken trägt. Hält das Essen aufrecht und die Laune auch.', q: 'Taco Halter Dinosaurier', max: 1500 },
+      { t: 'WC-Nachtlicht mit Bewegungsmelder', p: 'Beleuchtet die Schüssel in bunten Farben, sobald sich nachts jemand nähert.', q: 'Toilettenlicht Bewegungsmelder', max: 1500 },
+      { t: 'Pizza-Socken im Karton', p: 'Socken, gefaltet und verpackt wie eine Pizza im Lieferkarton.', q: 'Pizza Socken Box', max: 1500 },
+      { t: 'Kopfmassage-Spinne', p: 'Drahtfinger, die über die Kopfhaut gleiten. Wer es einmal probiert, gibt sie nicht mehr her.', q: 'Kopfmassage Spinne', max: 1500 },
+      { t: 'Entscheidungskugel fürs Büro', p: 'Frage stellen, anstoßen, Antwort ablesen. Trifft Entscheidungen so gut wie manche Besprechung.', q: 'Entscheidungshilfe Kugel Büro', max: 1500 },
+      { t: 'Türstopper als eingeklemmtes Männchen', p: 'Eine kleine Figur stemmt sich mit aller Kraft gegen die Tür.', q: 'Türstopper Männchen', max: 1500 },
+      { t: 'Tasse mit Keksfach', p: 'Unten im Becher ist ein Fach für Kekse. Kaffee oben, Vorrat unten.', q: 'Tasse mit Keksfach', max: 1500 },
+    ] },
+    { id: 'bis-20', ic: '🎁', jump: 'Bis 20 Euro', h: 'Wichtelgeschenke bis 20 Euro',
+      intro: 'Für Runden mit großzügigem Rahmen. Die Links zeigen bei Amazon nur Treffer bis 20 Euro.', ideas: [
+      { t: 'Toiletten-Golf', p: 'Putting-Grün, Schläger und Bälle für das stille Örtchen. Golf dort, wo man ohnehin sitzt.', q: 'Toilettengolf Set', max: 2000 },
+      { t: 'Schreibtisch-Boxsack', p: 'Kleiner Boxsack mit Saugnapf für den Schreibtisch. Für Tage mit zu vielen Besprechungen.', q: 'Schreibtisch Boxsack Saugnapf', max: 2000 },
+      { t: 'Suppenkelle als Seeungeheuer', p: 'Die Kelle steht im Topf und schaut heraus wie das Ungeheuer aus dem See.', q: 'Suppenkelle Seeungeheuer', max: 2000 },
+      { t: 'Eierschalen&shy;sollbruchstellen&shy;verursacher', p: 'Eine Kugel fällt am Stab herunter und knackt das Frühstücksei sauber auf. Der Name ist das halbe Geschenk.', q: 'Eierschalensollbruchstellenverursacher', max: 2000 },
+      { t: 'Tisch-Staubsauger als Marienkäfer', p: 'Ein Käfer, der Krümel vom Schreibtisch saugt. Nützlich und albern zugleich.', q: 'Tischstaubsauger Marienkäfer', max: 2000 },
+      { t: 'Tisch-Bowling', p: 'Bahn, Kegel und Kugel im Kleinformat. Passt zwischen Tastatur und Kaffeetasse.', q: 'Tisch Bowling Mini', max: 2000 },
+    ] },
+    { id: 'schrott', ic: '🗑️', jump: 'Schrottwichteln', h: 'Schrottwichteln: herrlich nutzlos',
+      intro: 'Hier gewinnt, was niemand braucht und trotzdem jeder haben will.', ideas: [
+      { t: 'Tortilla-Decke', p: 'Runde Kuscheldecke, bedruckt wie ein Weizenfladen. Wer sich einrollt, ist die Füllung.', q: 'Tortilla Decke' },
+      { t: 'Fisch-Badelatschen', p: 'Badeschuhe in Form zweier Fische. Der Fuß steckt im Maul.', q: 'Fisch Badelatschen' },
+      { t: 'Unnütze Maschine', p: 'Ein Kasten mit Schalter. Legt man ihn um, kommt ein Finger heraus und schaltet wieder aus. Mehr kann sie nicht.', q: 'Useless Box' },
+      { t: 'Weihnachtspullover mit Lichtern', p: 'Strick mit eingebauten Lämpchen. Je hässlicher, desto besser für die Weihnachtsfeier.', q: 'Weihnachtspullover LED' },
+    ] },
+  ],
+  app: geschenke.app,
+  faq: [
+    ['Was ist ein gutes Wichtelgeschenk?', 'Eines, über das die Runde lacht und das trotzdem jemand mitnehmen will. Lustig schlägt teuer.'],
+    ['Wie viel gibt man beim Wichteln aus?', 'Das legt die Runde vorher fest. Wichtig ist nur, dass sich alle daran halten.'],
+    ['Was ist Schrottwichteln?', 'Jeder verschenkt etwas herrlich Unnützes – je absurder, desto besser. Gekauft wird wenig, gelacht wird viel.'],
+    ['Wie funktionieren die Links mit Sternchen?', 'Das sind Partnerlinks zu Amazon. Kaufst du darüber ein, bekommen wir eine kleine Provision. Für dich ändert sich nichts.'],
+  ],
+};
+
+export const PAGES = [geschenke, valentin, fragen, bauch, arten, wichteln];

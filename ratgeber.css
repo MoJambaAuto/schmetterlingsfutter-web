@@ -149,3 +149,10 @@ footer a{color:var(--text-muted)}
 footer .links{display:flex;flex-wrap:wrap;gap:6px 18px;margin-bottom:12px}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:1ms!important;scroll-behavior:auto!important}}
+
+/* Budget-Knöpfe (Wichtel-Seite) */
+.budget{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0}
+.budget p{flex-basis:100%;margin:0}
+/* Lange Wörter (z. B. Eierschalensollbruchstellenverursacher) dürfen die Ideen-Karten nicht verbreitern */
+.idea{min-width:0}
+.idea h3{overflow-wrap:anywhere;hyphens:auto}
