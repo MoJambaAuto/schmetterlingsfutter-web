@@ -81,8 +81,8 @@ function page(p) {
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="${APP}icons/icon.svg">
 <link rel="apple-touch-icon" href="${APP}icons/apple-touch-icon.png">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="${APP}fonts/Lato-400.woff2">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="${APP}fonts/PlayfairDisplay-400i.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/Lato-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/PlayfairDisplay-400i.woff2">
 <link rel="stylesheet" href="/ratgeber.css">
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>

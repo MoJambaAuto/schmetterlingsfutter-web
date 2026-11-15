@@ -26,26 +26,29 @@
 <meta name="twitter:image" content="https://schmetterlingsfutter.de/og-image.jpg">
 <link rel="icon" type="image/svg+xml" href="https://app.schmetterlingsfutter.de/icons/icon.svg">
 <link rel="apple-touch-icon" href="https://app.schmetterlingsfutter.de/icons/apple-touch-icon.png">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="https://app.schmetterlingsfutter.de/fonts/Lato-400.woff2">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="https://app.schmetterlingsfutter.de/fonts/PlayfairDisplay-400i.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/Lato-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/PlayfairDisplay-400i.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/Lato-700.woff2">
 <style>
 /* ---------- Fonts: same files as the app ---------- */
-@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400 700;font-display:swap;src:url('https://app.schmetterlingsfutter.de/fonts/PlayfairDisplay-400.woff2') format('woff2')}
-@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;font-display:swap;src:url('https://app.schmetterlingsfutter.de/fonts/PlayfairDisplay-400i.woff2') format('woff2')}
-@font-face{font-family:'Lato';font-style:normal;font-weight:400;font-display:swap;src:url('https://app.schmetterlingsfutter.de/fonts/Lato-400.woff2') format('woff2')}
-@font-face{font-family:'Lato';font-style:normal;font-weight:700;font-display:swap;src:url('https://app.schmetterlingsfutter.de/fonts/Lato-700.woff2') format('woff2')}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400 700;font-display:swap;src:url('/fonts/PlayfairDisplay-400.woff2') format('woff2')}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;font-display:swap;src:url('/fonts/PlayfairDisplay-400i.woff2') format('woff2')}
+@font-face{font-family:'Lato';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/Lato-400.woff2') format('woff2')}
+@font-face{font-family:'Lato';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/Lato-700.woff2') format('woff2')}
+/* Ersatzschrift mit angepassten Maßen: kein Springen, wenn die Webschrift nachlädt (CLS) */
+@font-face{font-family:'Lato Fallback';src:local('Arial'),local('Helvetica Neue'),local('Helvetica');size-adjust:97.8%;ascent-override:100.9%;descent-override:21.8%;line-gap-override:0%}@font-face{font-family:'Lato Fallback';font-weight:700;src:local('Arial Bold'),local('Arial'),local('Helvetica Neue Bold');size-adjust:93.2%;ascent-override:105.9%;descent-override:22.9%;line-gap-override:0%}@font-face{font-family:'Playfair Fallback';font-style:italic;src:local('Times New Roman Italic'),local('Times New Roman'),local('Times');size-adjust:105.4%;ascent-override:102.7%;descent-override:23.8%;line-gap-override:0%}
 
 /* ---------- Tokens: identical to app (css/app.css, theme default) ---------- */
 :root{
   --bg0:#1a0a1e;--bg1:#2d1133;--bg2:#1a0a1e;
-  --accent:#ff6496;--accent-2:#ff85a1;--accent-deep:#e8305a;--accent-dark:#9b1a38;
+  --accent:#ff6496;--accent-2:#ff85a1;--accent-deep:#dc2a55;--accent-dark:#9b1a38;
   --text:#fff1f5;--text-soft:#f6dbe6;--text-muted:#f2bfd0;
   --line:rgba(255,150,180,.3);--line-soft:rgba(255,150,180,.18);
   --glass:rgba(255,255,255,.05);--glass-2:rgba(255,255,255,.03);
   --glow:rgba(255,100,150,.5);
   --radius:20px;--radius-s:14px;
-  --serif:'Playfair Display',Georgia,'Times New Roman',serif;
-  --sans:'Lato',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --serif:'Playfair Display','Playfair Fallback',Georgia,'Times New Roman',serif;
+  --sans:'Lato','Lato Fallback',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
   /* Motion tokens */
   --ease-out:cubic-bezier(.22,1,.36,1);--ease-in-out:cubic-bezier(.65,0,.35,1);--ease-spring:cubic-bezier(.34,1.4,.64,1);
   --t-xs:160ms;--t-s:280ms;--t-m:600ms;--t-l:900ms;--stagger:70ms;--rise:18px;
