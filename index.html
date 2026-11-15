@@ -107,7 +107,8 @@ section{width:100%;margin-top:56px}
   transition:transform var(--t-s) var(--ease-out),box-shadow var(--t-s) var(--ease-out),border-color var(--t-s) var(--ease-out),background var(--t-s) var(--ease-out)}
 .card.soft{background:var(--glass-2);border-color:var(--line-soft);display:block;text-align:center}
 .card b{color:var(--text);font-weight:700}
-.card .ic{font-size:24px;line-height:1.2;transition:transform var(--t-s) var(--ease-spring)}
+.card .ic{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:14px;background:rgba(255,100,150,.12);border:.5px solid var(--line-soft);color:var(--accent-2);transition:transform var(--t-s) var(--ease-spring)}
+.card .ic svg{width:26px;height:26px}
 @media (hover:hover){
   .card:not(.soft):hover{transform:translate3d(0,-3px,0);background:rgba(255,255,255,.07);border-color:var(--accent-2);box-shadow:0 14px 34px -18px var(--glow)}
   .card:not(.soft):hover .ic{transform:scale(1.18) rotate(-6deg)}
@@ -132,6 +133,16 @@ a.card.guide:hover .go{transform:translateX(4px)}
 .faq details[open] summary::after{content:"–"}
 .faq p{padding:0 18px 16px;color:var(--text-soft)}
 .card.story{text-align:left}.story p+p{margin-top:12px}
+@media (min-width:900px){
+  main{max-width:1040px;padding-top:64px}
+  .lead,.install,.sf-tester-box,#fragen,#warum,main>section:not([id]){max-width:720px;margin-left:auto;margin-right:auto}
+  #funktionen,#ratgeber{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px;align-items:stretch}
+  #funktionen>h2,#funktionen>.view-sub,#ratgeber>h2,#ratgeber>.view-sub,#funktionen .card.games{grid-column:1/-1}
+  #funktionen .card,#ratgeber .card{margin-bottom:0}
+  #funktionen .card:last-of-type{grid-column:1/-1}
+  #funktionen>.view-sub,#ratgeber>.view-sub{margin-bottom:6px}
+  .heart{width:220px}
+}
 footer{width:100%;border-top:.5px solid var(--line-soft);margin-top:56px;padding-top:18px;font-size:14px;color:var(--text-muted);line-height:1.6}
 footer b{color:var(--text-soft);font-weight:400;letter-spacing:2px;text-transform:uppercase;font-size:12px}
 
@@ -163,6 +174,7 @@ html:not(.os-ios):not(.os-android) .install [data-os="all"],.os-ios .install [da
 <script>(function(r,u){r.classList.add('js');if(/iPhone|iPad|iPod/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1))r.classList.add('os-ios');else if(/Android/.test(u))r.classList.add('os-android')})(document.documentElement,navigator.userAgent)</script>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="i-wuerfel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><circle cx="8.5" cy="8.5" r="1.2" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></symbol><symbol id="i-brief" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/><path d="M12 17.2c-1.6-1-2.6-1.9-2.6-3a1.3 1.3 0 012.6-.4 1.3 1.3 0 012.6.4c0 1.1-1 2-2.6 3z" fill="currentColor" stroke="none"/></symbol><symbol id="i-kalender" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M12 18c-1.8-1.1-3-2.2-3-3.4a1.5 1.5 0 013-.5 1.5 1.5 0 013 .5c0 1.2-1.2 2.3-3 3.4z" fill="currentColor" stroke="none"/></symbol><symbol id="i-geschenk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10.5" rx="1.8"/><rect x="3" y="7" width="18" height="3.5" rx="1"/><path d="M12 7v13.5M12 7c-1.5-3.5-5.5-3.5-5-1s5 1 5 1zm0 0c1.5-3.5 5.5-3.5 5-1s-5 1-5 1z"/></symbol><symbol id="i-ticket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7.5h16v3a1.8 1.8 0 000 3.5v3H4v-3a1.8 1.8 0 000-3.5z"/><path d="M14.5 7.5v10" stroke-dasharray="1.6 1.8"/></symbol><symbol id="i-karte" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 6.5l5-2 7 2 5-2v13l-5 2-7-2-5 2z"/><path d="M8.5 4.5v13M15.5 6.5v13"/></symbol><symbol id="i-herz" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0112 7.6 4.3 4.3 0 0119.5 10c0 5.4-7.5 10-7.5 10z"/></symbol><symbol id="i-frage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5A2.5 2.5 0 016.5 4h11A2.5 2.5 0 0120 6.5v8a2.5 2.5 0 01-2.5 2.5H10l-4.5 3.5V17A2.5 2.5 0 014 14.5z"/><path d="M10 9a2 2 0 113 1.7c-.7.4-1 .8-1 1.5"/><circle cx="12" cy="14.6" r=".9" fill="currentColor" stroke="none"/></symbol><symbol id="i-puls" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0112 7.6 4.3 4.3 0 0119.5 10c0 5.4-7.5 10-7.5 10z"/><path d="M6.5 12h3l1.5-2.5 2 5 1.5-2.5h3"/></symbol><symbol id="i-falter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v11M12 8c-1-3-2.5-4.5-3.5-5M12 8c1-3 2.5-4.5 3.5-5"/><path d="M11.4 10C9 6 3.5 5 3.5 8.5c0 2.6 2.7 3.6 7.9 3.3zM12.6 10C15 6 20.5 5 20.5 8.5c0 2.6-2.7 3.6-7.9 3.3zM11.4 13c-3 0-6 1.2-5.5 3.8.6 2.6 3.7 1.6 5.5-1.8zM12.6 13c3 0 6 1.2 5.5 3.8-.6 2.6-3.7 1.6-5.5-1.8z"/></symbol><symbol id="i-stern" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.4 5.2 5.6.6-4.2 3.8 1.2 5.5L12 15.8l-5 2.8 1.2-5.5L4 9.3l5.6-.6z"/></symbol></defs></svg>
 <div class="stars" id="stars" aria-hidden="true"></div>
 <div class="glow" aria-hidden="true"></div>
 <div class="veil" aria-hidden="true"></div>
@@ -228,26 +240,26 @@ html:not(.os-ios):not(.os-android) .install [data-os="all"],.os-ios .install [da
   <section id="funktionen">
     <h2 class="view-title" data-reveal>Was die App kann</h2>
     <p class="view-sub" data-reveal style="--i:1">Für zwei</p>
-    <div class="card games" data-reveal style="--i:0"><span class="ic" aria-hidden="true">🎲</span><span><b>Spiele zu zweit</b> – aus Handyzeit nebeneinander wird Qualitätszeit miteinander. Gemeinsam an einem Handy oder auf zwei, und wer verliert, schuldet einen kleinen Liebesdienst.</span>
+    <div class="card games" data-reveal style="--i:0"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-wuerfel"/></svg></span><span><b>Spiele zu zweit</b> – aus Handyzeit nebeneinander wird Qualitätszeit miteinander. Gemeinsam an einem Handy oder auf zwei, und wer verliert, schuldet einen kleinen Liebesdienst.</span>
       <ul class="chips" aria-label="Spiele">
         <li>🦋 Schmetterlinge fangen</li><li>🕵️ Zwei Wahrheiten, eine Lüge</li><li>📖 Satz für Satz</li><li>🗺️ Schnitzeljagd</li><li>🐛 Raupe rät</li><li>🌼 Wiese durchsuchen</li><li>🎲 Würfelwiese</li><li>🌸 Blumenbeete</li><li>🦋 Wanderzug</li><li>🕸️ Falterjagd draußen</li>
       </ul></div>
-    <div class="card" data-reveal style="--i:1"><span class="ic" aria-hidden="true">💌</span><span><b>Liebe Worte</b> – Spruch-Generator und kleine Botschaften für zwischendurch.</span></div>
-    <div class="card" data-reveal style="--i:2"><span class="ic" aria-hidden="true">📅</span><span><b>Anlässe nie vergessen</b> – Jahrestag, Geburtstag, Valentinstag mit Erinnerung im eigenen Kalender.</span></div>
-    <div class="card" data-reveal style="--i:3"><span class="ic" aria-hidden="true">🎁</span><span><b>Wünsche sammeln</b> – was sich dein Schatz wünscht, festhalten statt vergessen.</span></div>
-    <div class="card" data-reveal style="--i:4"><span class="ic" aria-hidden="true">🎟️</span><span><b>Gemeinsame Ideen</b> – Erlebnis-, Ausflugs- und Geschenkideen für zwei.</span></div>
-    <div class="card" data-reveal style="--i:5"><span class="ic" aria-hidden="true">🗺️</span><span><b>Euch besser kennen</b> – Love-Map-Fragen und Dankbarkeits-Notizen.</span></div>
+    <div class="card" data-reveal style="--i:1"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-brief"/></svg></span><span><b>Liebe Worte</b> – Spruch-Generator und kleine Botschaften für zwischendurch.</span></div>
+    <div class="card" data-reveal style="--i:2"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-kalender"/></svg></span><span><b>Anlässe nie vergessen</b> – Jahrestag, Geburtstag, Valentinstag mit Erinnerung im eigenen Kalender.</span></div>
+    <div class="card" data-reveal style="--i:3"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-geschenk"/></svg></span><span><b>Wünsche sammeln</b> – was sich dein Schatz wünscht, festhalten statt vergessen.</span></div>
+    <div class="card" data-reveal style="--i:4"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-ticket"/></svg></span><span><b>Gemeinsame Ideen</b> – Erlebnis-, Ausflugs- und Geschenkideen für zwei.</span></div>
+    <div class="card" data-reveal style="--i:5"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-karte"/></svg></span><span><b>Euch besser kennen</b> – Love-Map-Fragen und Dankbarkeits-Notizen.</span></div>
   </section>
 
   <section id="ratgeber">
     <h2 class="view-title" data-reveal>Ideen für euch</h2>
     <p class="view-sub" data-reveal style="--i:1">Ratgeber</p>
-    <a class="card guide" data-reveal style="--i:0" href="/geschenkideen-freundin-freund/"><span class="ic" aria-hidden="true">🎁</span><span><b>Geschenkideen für Freundin &amp; Freund</b> – persönlich, nach Budget sortiert.</span><span class="go" aria-hidden="true">→</span></a>
-    <a class="card guide" data-reveal style="--i:1" href="/valentinstag-geschenke/"><span class="ic" aria-hidden="true">🌹</span><span><b>Valentinstag-Geschenke</b> – für sie, ihn und euch zwei.</span><span class="go" aria-hidden="true">→</span></a>
-    <a class="card guide" data-reveal style="--i:2" href="/fragen-fuer-paare/"><span class="ic" aria-hidden="true">💬</span><span><b>Fragen für Paare</b> – 70 Fragen und eine Zufallsfrage für heute Abend.</span><span class="go" aria-hidden="true">→</span></a>
-    <a class="card guide" data-reveal style="--i:3" href="/schmetterlinge-im-bauch/"><span class="ic" aria-hidden="true">💓</span><span><b>Schmetterlinge im Bauch</b> – was dahintersteckt und wie das Kribbeln bleibt.</span><span class="go" aria-hidden="true">→</span></a>
-    <a class="card guide" data-reveal style="--i:4" href="/schmetterlingsarten/"><span class="ic" aria-hidden="true">🦋</span><span><b>Schmetterlingsarten in Deutschland</b> – 8 Falter erkennen, mit Bildern.</span><span class="go" aria-hidden="true">→</span></a>
-    <a class="card guide" data-reveal style="--i:5" href="/wichtelgeschenke/"><span class="ic" aria-hidden="true">🎅</span><span><b>Lustige Wichtelgeschenke</b> – kuriose Ideen bis 10, 15 und 20 Euro.</span><span class="go" aria-hidden="true">→</span></a>
+    <a class="card guide" data-reveal style="--i:0" href="/geschenkideen-freundin-freund/"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-geschenk"/></svg></span><span><b>Geschenkideen für Freundin &amp; Freund</b> – persönlich, nach Budget sortiert.</span><span class="go" aria-hidden="true">→</span></a>
+    <a class="card guide" data-reveal style="--i:1" href="/valentinstag-geschenke/"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-herz"/></svg></span><span><b>Valentinstag-Geschenke</b> – für sie, ihn und euch zwei.</span><span class="go" aria-hidden="true">→</span></a>
+    <a class="card guide" data-reveal style="--i:2" href="/fragen-fuer-paare/"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-frage"/></svg></span><span><b>Fragen für Paare</b> – 70 Fragen und eine Zufallsfrage für heute Abend.</span><span class="go" aria-hidden="true">→</span></a>
+    <a class="card guide" data-reveal style="--i:3" href="/schmetterlinge-im-bauch/"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-puls"/></svg></span><span><b>Schmetterlinge im Bauch</b> – was dahintersteckt und wie das Kribbeln bleibt.</span><span class="go" aria-hidden="true">→</span></a>
+    <a class="card guide" data-reveal style="--i:4" href="/schmetterlingsarten/"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-falter"/></svg></span><span><b>Schmetterlingsarten in Deutschland</b> – 8 Falter erkennen, mit Bildern.</span><span class="go" aria-hidden="true">→</span></a>
+    <a class="card guide" data-reveal style="--i:5" href="/wichtelgeschenke/"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-stern"/></svg></span><span><b>Lustige Wichtelgeschenke</b> – kuriose Ideen bis 10, 15 und 20 Euro.</span><span class="go" aria-hidden="true">→</span></a>
   </section>
 
 
