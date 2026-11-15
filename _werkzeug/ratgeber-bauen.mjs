@@ -119,6 +119,7 @@ ${p.sections.map(section).join('\n')}
 </footer>
 </div>
 ${p.script ? `<script>${p.script}</script>` : ''}
+<script>addEventListener('load',function(){var s=document.createElement('script');s.src='/js/falter.js';document.body.appendChild(s)})</script>
 </body></html>
 `;
 }

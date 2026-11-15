@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Schmetterlingsfutter – die Paar-App</title>
-<meta name="description" content="Schmetterlingsfutter ist eine kostenlose App für Paare: kleine Ideen, Anlässe, Wünsche und Liebesbotschaften – Futter für die Schmetterlinge im Bauch.">
+<title>Schmetterlingsfutter – die kostenlose App für Paare</title>
+<meta name="description" content="Kostenlose App für Paare: Spiele zu zweit, liebe Botschaften, Jahrestage und Wünsche – damit die Schmetterlinge im Bauch bleiben. Ohne Anmeldung, ohne Abo.">
 <meta name="theme-color" content="#1a0a1e">
 <link rel="canonical" href="https://schmetterlingsfutter.de/">
 <!-- Vorschau beim Teilen (WhatsApp, Facebook, Telegram, X …) -->
@@ -24,6 +24,7 @@
 <meta name="twitter:title" content="Schmetterlingsfutter – die Paar-App">
 <meta name="twitter:description" content="Die kostenlose App für Paare: kleine Ideen, Spiele zu zweit und Liebesbotschaften.">
 <meta name="twitter:image" content="https://schmetterlingsfutter.de/og-image.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://schmetterlingsfutter.de/#website","url":"https://schmetterlingsfutter.de/","name":"Schmetterlingsfutter","inLanguage":"de-DE","publisher":{"@id":"https://schmetterlingsfutter.de/#org"}},{"@type":"Organization","@id":"https://schmetterlingsfutter.de/#org","name":"Schmetterlingsfutter","legalName":"MoJamba – Stefan Wilhelm Münch","url":"https://schmetterlingsfutter.de/","logo":"https://app.schmetterlingsfutter.de/icons/icon-512.png","email":"info@mojamba.de","address":{"@type":"PostalAddress","streetAddress":"Pelzstr. 30","postalCode":"53347","addressLocality":"Alfter","addressCountry":"DE"}},{"@type":"WebApplication","@id":"https://schmetterlingsfutter.de/#app","name":"Schmetterlingsfutter","url":"https://app.schmetterlingsfutter.de/","applicationCategory":"LifestyleApplication","operatingSystem":"Web-Browser (Android, iOS)","inLanguage":"de-DE","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"publisher":{"@id":"https://schmetterlingsfutter.de/#org"},"description":"Kostenlose App für Paare: Spiele zu zweit, liebe Botschaften, Jahrestage und Wünsche."},{"@type":"FAQPage","@id":"https://schmetterlingsfutter.de/#fragen","mainEntity":[{"@type":"Question","name":"Was ist Schmetterlingsfutter?","acceptedAnswer":{"@type":"Answer","text":"Eine kostenlose App für Paare. Ihr spielt zu zweit, schickt euch liebe Botschaften, sammelt Wünsche und vergesst keinen Jahrestag mehr. Kleine Ideen für jeden Tag, damit die Beziehung lebendig bleibt."}},{"@type":"Question","name":"Kostet die App etwas?","acceptedAnswer":{"@type":"Answer","text":"Nein. Es gibt kein Abo und keine Anmeldung. Die App finanziert sich über gekennzeichnete Partnerlinks, zum Beispiel zu Geschenkideen. Für euch kostet das nichts extra."}},{"@type":"Question","name":"Gibt es Schmetterlingsfutter für iPhone und Android?","acceptedAnswer":{"@type":"Answer","text":"Ja. Die App läuft im Browser auf jedem Handy. Auf dem iPhone über Safari: Teilen und „Zum Home-Bildschirm“. Auf Android über Chrome: Menü und „App installieren“. Für Android kommt sie zusätzlich in den Google Play Store."}},{"@type":"Question","name":"Wo werden unsere Daten gespeichert?","acceptedAnswer":{"@type":"Answer","text":"Eure Einträge bleiben auf eurem Gerät. Wenn ihr eure Handys koppelt, läuft die Verbindung verschlüsselt. Wir verkaufen keine Daten."}},{"@type":"Question","name":"Brauchen wir zwei Handys?","acceptedAnswer":{"@type":"Answer","text":"Nein. Viele Spiele funktionieren an einem Handy, das ihr hin und her gebt. Mit zwei Handys geht noch mehr, zum Beispiel Botschaften schicken."}}]}]}</script>
 <link rel="icon" type="image/svg+xml" href="https://app.schmetterlingsfutter.de/icons/icon.svg">
 <link rel="apple-touch-icon" href="https://app.schmetterlingsfutter.de/icons/apple-touch-icon.png">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/Lato-400.woff2">
@@ -74,7 +75,10 @@ main{position:relative;z-index:1;max-width:560px;margin:auto;padding:48px 24px 3
 .heart .wings{transform-origin:256px 290px}
 .loaded .heart .wings{animation:flap 4.8s var(--ease-in-out) 1.2s infinite}
 @keyframes flap{0%,70%,100%{transform:scaleX(1)}78%{transform:scaleX(.82)}86%{transform:scaleX(1)}}
-.eyebrow{font-size:14px;color:var(--text-muted);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px}
+h1 .eyebrow{display:block;font-family:var(--sans);font-style:normal;line-height:1.4}
+h1 .brand{display:block}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.eyebrow{font-size:15px;color:var(--text-muted);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px}
 h1{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(2.3rem,8vw,3.2rem);line-height:1.1;letter-spacing:.5px;color:var(--text);margin-bottom:14px}
 .lead{color:var(--text-soft);font-size:18px;max-width:30em;margin-bottom:24px}
 
@@ -120,6 +124,14 @@ a.card.guide:hover .go{transform:translateX(4px)}
 .tl{color:var(--accent-2);text-decoration:none;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size var(--t-s) var(--ease-out)}
 .tl:hover,.tl:focus-visible{background-size:100% 1px}
 
+.faq{text-align:left}
+.faq details{background:var(--glass);border:.5px solid var(--line);border-radius:var(--radius-s);margin-bottom:10px}
+.faq summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--text);font-size:18px;list-style:none;min-height:44px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";float:right;color:var(--accent-2);font-size:22px;line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq p{padding:0 18px 16px;color:var(--text-soft)}
+.card.story{text-align:left}.story p+p{margin-top:12px}
 footer{width:100%;border-top:.5px solid var(--line-soft);margin-top:56px;padding-top:18px;font-size:14px;color:var(--text-muted);line-height:1.6}
 footer b{color:var(--text-soft);font-weight:400;letter-spacing:2px;text-transform:uppercase;font-size:12px}
 
@@ -160,8 +172,7 @@ html:not(.os-ios):not(.os-android) .install [data-os="all"],.os-ios .install [da
     <linearGradient id="mupC" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff6496"/><stop offset="1" stop-color="#c2185b"/></linearGradient>
     <linearGradient id="mloC" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9b5de5"/><stop offset="1" stop-color="#6a3fb5"/></linearGradient>
   </defs><g class="wings"><path d="M0,-30 C-25,-62 -70,-38 -70,0 C-70,36 -30,58 0,85 C30,58 70,36 70,0 C70,-38 25,-62 0,-30 Z" transform="translate(248,318) rotate(-122) scale(0.86) translate(0,-85)" fill="url(#mloC)" /><path d="M0,-30 C-25,-62 -70,-38 -70,0 C-70,36 -30,58 0,85 C30,58 70,36 70,0 C70,-38 25,-62 0,-30 Z" transform="translate(264,318) rotate(122) scale(0.86) translate(0,-85)" fill="url(#mloC)" /><path d="M0,-30 C-25,-62 -70,-38 -70,0 C-70,36 -30,58 0,85 C30,58 70,36 70,0 C70,-38 25,-62 0,-30 Z" transform="translate(248,296) rotate(-48) scale(1.46) translate(0,-85)" fill="url(#mupC)" /><path d="M0,-30 C-25,-62 -70,-38 -70,0 C-70,36 -30,58 0,85 C30,58 70,36 70,0 C70,-38 25,-62 0,-30 Z" transform="translate(264,296) rotate(48) scale(1.46) translate(0,-85)" fill="url(#mupC)" /><path d="M0,-30 C-25,-62 -70,-38 -70,0 C-70,36 -30,58 0,85 C30,58 70,36 70,0 C70,-38 25,-62 0,-30 Z" transform="translate(248,296) rotate(-48) scale(0.6) translate(-22,-160)" fill="#fff" opacity=".22"/><path d="M0,-30 C-25,-62 -70,-38 -70,0 C-70,36 -30,58 0,85 C30,58 70,36 70,0 C70,-38 25,-62 0,-30 Z" transform="translate(264,296) rotate(48) scale(0.6) translate(22,-160)" fill="#fff" opacity=".22"/></g><path d="M256,196 C246,150 222,128 200,122" fill="none" stroke="#f6dbe6" stroke-width="9" stroke-linecap="round"/><path d="M256,196 C266,150 290,128 312,122" fill="none" stroke="#f6dbe6" stroke-width="9" stroke-linecap="round"/><circle cx="198" cy="121" r="11" fill="#f6dbe6"/><circle cx="314" cy="121" r="11" fill="#f6dbe6"/><rect x="246" y="190" width="20" height="186" rx="10" fill="#f6dbe6"/></svg>
-  <p class="eyebrow" data-load style="--i:1">Die Paar-App</p>
-  <h1 class="split" data-split>Schmetterlingsfutter</h1>
+  <h1><span class="eyebrow" data-load style="--i:1">Die kostenlose App für Paare</span><span class="split brand" data-split>Schmetterlingsfutter</span></h1>
   <p class="lead" data-load style="--i:2">Die kostenlose App für Paare – Futter für die Schmetterlinge im Bauch. Kleine Ideen für jeden Tag, damit die Beziehung lebendig bleibt.</p>
   <p data-load style="--i:3"><a class="pill-btn" data-magnetic data-leave href="https://app.schmetterlingsfutter.de/">App öffnen <span class="arrow" aria-hidden="true">→</span></a></p>
   <div class="install" data-load style="--i:4">
@@ -214,7 +225,7 @@ html:not(.os-ios):not(.os-android) .install [data-os="all"],.os-ios .install [da
   </aside>
   <!-- === ENDE: Android Tester-Box === -->
 
-  <section>
+  <section id="funktionen">
     <h2 class="view-title" data-reveal>Was die App kann</h2>
     <p class="view-sub" data-reveal style="--i:1">Für zwei</p>
     <div class="card games" data-reveal style="--i:0"><span class="ic" aria-hidden="true">🎲</span><span><b>Spiele zu zweit</b> – aus Handyzeit nebeneinander wird Qualitätszeit miteinander. Gemeinsam an einem Handy oder auf zwei, und wer verliert, schuldet einen kleinen Liebesdienst.</span>
@@ -228,7 +239,7 @@ html:not(.os-ios):not(.os-android) .install [data-os="all"],.os-ios .install [da
     <div class="card" data-reveal style="--i:5"><span class="ic" aria-hidden="true">🗺️</span><span><b>Euch besser kennen</b> – Love-Map-Fragen und Dankbarkeits-Notizen.</span></div>
   </section>
 
-  <section>
+  <section id="ratgeber">
     <h2 class="view-title" data-reveal>Ideen für euch</h2>
     <p class="view-sub" data-reveal style="--i:1">Ratgeber</p>
     <a class="card guide" data-reveal style="--i:0" href="/geschenkideen-freundin-freund/"><span class="ic" aria-hidden="true">🎁</span><span><b>Geschenkideen für Freundin &amp; Freund</b> – persönlich, nach Budget sortiert.</span><span class="go" aria-hidden="true">→</span></a>
@@ -239,6 +250,23 @@ html:not(.os-ios):not(.os-android) .install [data-os="all"],.os-ios .install [da
     <a class="card guide" data-reveal style="--i:5" href="/wichtelgeschenke/"><span class="ic" aria-hidden="true">🎅</span><span><b>Lustige Wichtelgeschenke</b> – kuriose Ideen bis 10, 15 und 20 Euro.</span><span class="go" aria-hidden="true">→</span></a>
   </section>
 
+
+  <section id="fragen">
+    <h2 class="view-title" data-reveal>Häufige Fragen</h2>
+    <p class="view-sub" data-reveal style="--i:1">Kurz beantwortet</p>
+    <div class="faq" data-reveal><details><summary>Was ist Schmetterlingsfutter?</summary><p>Eine kostenlose App für Paare. Ihr spielt zu zweit, schickt euch liebe Botschaften, sammelt Wünsche und vergesst keinen Jahrestag mehr. Kleine Ideen für jeden Tag, damit die Beziehung lebendig bleibt.</p></details><details><summary>Kostet die App etwas?</summary><p>Nein. Es gibt kein Abo und keine Anmeldung. Die App finanziert sich über gekennzeichnete Partnerlinks, zum Beispiel zu Geschenkideen. Für euch kostet das nichts extra.</p></details><details><summary>Gibt es Schmetterlingsfutter für iPhone und Android?</summary><p>Ja. Die App läuft im Browser auf jedem Handy. Auf dem iPhone über Safari: Teilen und „Zum Home-Bildschirm“. Auf Android über Chrome: Menü und „App installieren“. Für Android kommt sie zusätzlich in den Google Play Store.</p></details><details><summary>Wo werden unsere Daten gespeichert?</summary><p>Eure Einträge bleiben auf eurem Gerät. Wenn ihr eure Handys koppelt, läuft die Verbindung verschlüsselt. Wir verkaufen keine Daten.</p></details><details><summary>Brauchen wir zwei Handys?</summary><p>Nein. Viele Spiele funktionieren an einem Handy, das ihr hin und her gebt. Mit zwei Handys geht noch mehr, zum Beispiel Botschaften schicken.</p></details></div>
+  </section>
+
+  <section id="warum">
+    <h2 class="view-title" data-reveal>Warum es Schmetterlingsfutter gibt</h2>
+    <p class="view-sub" data-reveal style="--i:1">Von Mo aus Alfter</p>
+    <div class="card soft story" data-reveal>
+      <p>Ich bin Mo und mache das hier allein, von Alfter bei Bonn aus. Kein Konzern, keine Investoren.</p>
+      <p>Die Idee ist einfach: Im Alltag schläft vieles ein. Nicht, weil die Liebe weg ist – sondern weil Job, Termine und Handy jeden Tag gewinnen. Ich wollte etwas, das Paare kurz anstupst: ein Spiel, ein lieber Satz, ein Jahrestag, der nicht untergeht.</p>
+      <p>Die App ist kostenlos. Eure Einträge bleiben auf eurem Handy. Geld kommt nur über gekennzeichnete Partnerlinks rein – für euch kostet das nichts extra.</p>
+      <p>Ideen, Kritik, Fehler gefunden? Schreib mir: <a class="tl" href="mailto:info@mojamba.de">info@mojamba.de</a></p>
+    </div>
+  </section>
   <section>
     <h2 class="view-title" data-reveal>Daten &amp; Werbung</h2>
     <p class="view-sub" data-reveal style="--i:1">Ehrlich &amp; privat</p>
@@ -270,8 +298,8 @@ html:not(.os-ios):not(.os-android) .install [data-os="all"],.os-ios .install [da
     s.style.cssText=`width:${z}px;height:${z}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*3}s;--delay:${Math.random()*3}s`;st.appendChild(s)}
 
   d.querySelectorAll('[data-split]').forEach(el=>{
-    const t=el.textContent.trim();el.setAttribute('aria-label',t);
-    el.innerHTML=t.split(/\s+/).map((w,i)=>`<span class="w" aria-hidden="true"><span style="--wi:${i}">${w}</span></span>`).join(' ');
+    const t=el.textContent.trim();
+    el.innerHTML='<span class="sr">'+t+'</span>'+t.split(/\s+/).map((w,i)=>`<span class="w" aria-hidden="true"><span style="--wi:${i}">${w}</span></span>`).join(' ');
   });
   requestAnimationFrame(()=>requestAnimationFrame(()=>root.classList.add('loaded')));
 
@@ -296,4 +324,5 @@ html:not(.os-ios):not(.os-android) .install [data-os="all"],.os-ios .install [da
   addEventListener('pageshow',e=>{if(e.persisted)root.classList.remove('leaving')});
 })();
 </script>
+<script>addEventListener('load',function(){var s=document.createElement('script');s.src='/js/falter.js';document.body.appendChild(s)})</script>
 </body></html>
