@@ -60,7 +60,7 @@ export function page(p) {
 ${p.top || ''}
 <p class="lead">${p.lead}</p>
 <p class="meta">Aktualisiert im ${esc(p.month)} · Links mit * sind Partnerlinks</p>
-<ul class="jump" aria-label="Inhalt">${p.sections.filter((s) => s.jump).map((s) => `<li><a href="#${s.id}">${s.ic} ${esc(s.jump)}</a></li>`).join('')}</ul>
+${p.sections.filter((s) => s.jump).length > 1 ? `<ul class="jump" aria-label="Inhalt">${p.sections.filter((s) => s.jump).map((s) => `<li><a href="#${s.id}">${s.ic} ${esc(s.jump)}</a></li>`).join('')}</ul>` : ''}
 ${p.sections.map(section).join('\n')}
 <aside class="appbox">
   <h2>${esc(p.app.h)}</h2>
@@ -73,7 +73,7 @@ ${p.sections.map(section).join('\n')}
 <section><h2><span class="ic" aria-hidden="true">🦋</span>Mehr Ideen für euch</h2>
 <ul class="more">${others.map((o) => `<li><a href="/${o.slug}/"><span aria-hidden="true">${o.ic}</span>${esc(o.crumb)}</a></li>`).join('')}<li><a href="/"><span aria-hidden="true">📲</span>Die Paar-App Schmetterlingsfutter</a></li></ul>
 </section>
-<p class="disclose">* Partnerlink: Kaufst du darüber ein, bekommen wir eine kleine Provision. Am Preis ändert sich für dich nichts. Als Amazon-Partner verdienen wir an qualifizierten Verkäufen. Die Ideen wählen wir selbst aus. Budget-Angaben sind grobe Einordnungen, keine Preise.</p>`;
+<p class="disclose">${p.disclose ? esc(p.disclose) : '* Partnerlink: Kaufst du darüber ein, bekommen wir eine kleine Provision. Am Preis ändert sich für dich nichts. Als Amazon-Partner verdienen wir an qualifizierten Verkäufen. Die Ideen wählen wir selbst aus. Budget-Angaben sind grobe Einordnungen, keine Preise.'}</p>`;
   return rahmen({ title: p.title, desc: p.desc, url, ogTitle: p.ogTitle || p.h1, ld, main, pages: PAGES, script: p.script });
 }
 

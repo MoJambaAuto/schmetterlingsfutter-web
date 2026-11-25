@@ -387,6 +387,8 @@ const wichteln = {
 // (aus _werkzeug/funde-daten.json, erzeugt von funde-bauen.mjs); je Fund gibt es eine eigene Seite /funde/<slug>/.
 // Das Skript zeigt nur einen neueren Fund von heute an, falls der tägliche Bau noch nicht gelaufen ist.
 const FEED = 'https://mojambaauto.github.io/amazon-engine/feed/funde.json';
+export const KANAL = 'https://whatsapp.com/channel/0029Vb9gGpbId7nS5nRT380l';
+const kanalKnopf = `<p class="kanal"><a class="buy app" href="${KANAL}" target="_blank" rel="noopener">💬 Jeden Tag aufs Handy: WhatsApp-Kanal folgen →</a></p>`;
 const escF = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const ttmmjjjj = (d) => `${d.slice(8, 10)}.${d.slice(5, 7)}.${d.slice(0, 4)}`;
 const fundLink = (q) => 'https://www.amazon.de/s?k=' + encodeURIComponent(q).replace(/%20/g, '+') + '&tag=schmetterlingsfutter-21';
@@ -409,7 +411,7 @@ export function fundeSeite(daten) {
     lead: 'Jeden Tag stöbert Papillon einen <b>kuriosen Fund</b> auf. Gibt es wirklich, ist meistens albern und taugt fast immer als Geschenk.',
     sections: [
       { id: 'heute', ic: '✨', jump: 'Heute', h: 'Der Fund von heute',
-        html: `<div id="fdt-heute" data-datum="${neu ? neu.datum : ''}">${neu ? `<ul class="ideas">${fundKarte(neu, true)}</ul>` : '<p>Der erste Fund kommt bald.</p>'}</div>` },
+        html: `<div id="fdt-heute" data-datum="${neu ? neu.datum : ''}">${neu ? `<ul class="ideas">${fundKarte(neu, true)}</ul>` : '<p>Der erste Fund kommt bald.</p>'}</div>${kanalKnopf}` },
       ...(liste.length > 1 ? [{ id: 'alle', ic: '🗂️', jump: 'Alle Funde', h: 'Alle bisherigen Funde', html: `<ul class="ideas" id="fdt-alle">${liste.slice(1).map((f) => fundKarte(f)).join('')}</ul>` }] : []),
     ],
     script: `(function(){var T='schmetterlingsfutter-21',F='${FEED}';var h=document.getElementById('fdt-heute');if(!h)return;var d0=h.getAttribute('data-datum')||'';
@@ -421,6 +423,7 @@ l=(l||[]).slice().sort(function(x,y){return x.datum<y.datum?1:-1});var f=l[0];if
 h.innerHTML='<ul class="ideas"><li class="idea"><h3>'+e(f.text_h)+'</h3><span class="datum">'+D(f.datum)+'</span><p>'+e(f.text_p)+'</p><p class="anzeige">Anzeige</p><a class="buy" href="'+e(L(f.suchbegriff))+'" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a></li></ul>';
 }).catch(function(){})})();`,
     app: geschenke.app,
+    disclose: '* Partnerlink: Kaufst du darüber ein, bekommen wir eine kleine Provision. Am Preis ändert sich für dich nichts. Als Amazon-Partner verdienen wir an qualifizierten Verkäufen. Die Funde wählen wir selbst aus.',
     faq: [
       ['Was ist Papillons Fund des Tages?', 'Jeden Tag eine kuriose Geschenkidee, die wir selbst ausgesucht haben. Neue Funde erscheinen hier und im WhatsApp-Kanal.'],
       ['Wo bekomme ich den Fund jeden Tag?', 'Hier auf der Seite oder im WhatsApp-Kanal <a href="https://whatsapp.com/channel/0029Vb9gGpbId7nS5nRT380l" target="_blank" rel="noopener">„Papillons Fund des Tages“</a>.'],

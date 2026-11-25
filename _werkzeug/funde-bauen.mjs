@@ -6,7 +6,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { SITE, PAGES, fundeSeite } from './ratgeber-inhalte.mjs';
+import { SITE, PAGES, KANAL, fundeSeite } from './ratgeber-inhalte.mjs';
 import { APP, esc, amazon, rahmen } from './rahmen.mjs';
 import { ROOT, page } from './ratgeber-bauen.mjs';
 
@@ -67,7 +67,7 @@ export function fundSeite(f) {
 <p class="lead">${esc(f.text_p)}</p>
 <p class="anzeige">Anzeige</p>
 <a class="buy" href="${esc(amazon(f.suchbegriff))}" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a>
-<ul class="more fund-weiter"><li><a href="/funde/"><span aria-hidden="true">🔍</span>Alle Funde →</a></li><li><a href="/wichtelgeschenke/"><span aria-hidden="true">🎅</span>Lustige Wichtelgeschenke</a></li></ul>
+<ul class="more fund-weiter"><li><a href="/funde/"><span aria-hidden="true">🔍</span>Alle Funde →</a></li><li><a href="${KANAL}" target="_blank" rel="noopener"><span aria-hidden="true">💬</span>Jeden Tag im WhatsApp-Kanal</a></li><li><a href="/wichtelgeschenke/"><span aria-hidden="true">🎅</span>Lustige Wichtelgeschenke</a></li></ul>
 <aside class="appbox">
   <h2>${esc(app.h)}</h2>
   <p>${app.p}</p>
