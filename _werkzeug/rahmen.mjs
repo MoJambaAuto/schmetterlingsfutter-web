@@ -11,14 +11,15 @@ export const amazon = (q, max) => 'https://www.amazon.de/s?k=' + encodeURICompon
   + (max > 0 ? '&rh=p_36%3A-' + Math.round(max) : '') + '&tag=' + TAG;
 
 // main = Inhalt zwischen <main> und </main>; pages = Seiten für die Fußzeile (slug, crumb).
-export function rahmen({ title, desc, url, ogTitle, ld, main, pages, script }) {
+// robots (optional, z. B. 'noindex,follow' für /geschenk/) – ohne Angabe bleibt der Kopf wie bisher.
+export function rahmen({ title, desc, url, ogTitle, ld, main, pages, script, robots }) {
   return `<!doctype html>
 <html lang="de">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>${esc(title)}</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(desc)}">${robots ? `\n<meta name="robots" content="${esc(robots)}">` : ''}
 <meta name="theme-color" content="#1a0a1e">
 <link rel="canonical" href="${url}">
 <meta property="og:type" content="article">
