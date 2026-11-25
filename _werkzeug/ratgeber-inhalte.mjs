@@ -379,4 +379,37 @@ const wichteln = {
   ],
 };
 
-export const PAGES = [geschenke, valentin, fragen, bauch, arten, wichteln];
+
+// Papillons Fund des Tages (Amazon-Engine): Inhalt kommt täglich aus dem Engine-Feed, Seite selbst bleibt statisch.
+const FEED = 'https://mojambaauto.github.io/amazon-engine/feed/funde.json';
+const funde = {
+  slug: 'funde', ic: '🔍', crumb: 'Papillons Fund des Tages', date: '2026-11-25', month: 'November 2026',
+  title: 'Papillons Fund des Tages – kuriose Geschenkideen | Schmetterlingsfutter',
+  desc: 'Jeden Tag ein neuer kurioser Fund: lustige Geschenkideen fürs Wichteln, für den Geburtstag oder einfach zum Lachen. Alle bisherigen Funde auf einen Blick.',
+  h1: 'Papillons Fund des Tages',
+  lead: 'Jeden Tag stöbert Papillon einen <b>kuriosen Fund</b> auf. Gibt es wirklich, ist meistens albern und taugt fast immer als Geschenk.',
+  sections: [
+    { id: 'heute', ic: '✨', jump: 'Heute', h: 'Der Fund von heute',
+      html: '<div id="fdt-heute"><p>Der heutige Fund lädt …</p></div><noscript><p>Die Funde brauchen JavaScript. Viele Ideen findest du auch bei den <a href="/wichtelgeschenke/">lustigen Wichtelgeschenken</a>.</p></noscript>' },
+    { id: 'alle', ic: '🗂️', jump: 'Alle Funde', h: 'Alle bisherigen Funde', html: '<ul class="ideas" id="fdt-alle"></ul>' },
+  ],
+  script: `(function(){var T='schmetterlingsfutter-21',F='${FEED}';
+function e(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function L(q){return 'https://www.amazon.de/s?k='+encodeURIComponent(q).replace(/%20/g,'+')+'&tag='+T}
+function D(d){return d.slice(8,10)+'.'+d.slice(5,7)+'.'+d.slice(0,4)}
+function K(f,big){return '<li class="idea" id="'+e(f.slug)+'"><h3>'+e(big?f.text_h:f.titel)+'</h3><span class="price">'+D(f.datum)+'</span><p>'+e(f.text_p)+'</p><a class="buy" href="'+e(L(f.suchbegriff))+'" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a></li>'}
+var h=document.getElementById('fdt-heute'),a=document.getElementById('fdt-alle');
+fetch(F,{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(l){
+l=(l||[]).slice().sort(function(x,y){return x.datum<y.datum?1:-1});
+if(!l.length)throw 0;h.innerHTML='<ul class="ideas">'+K(l[0],1)+'</ul>';a.innerHTML=l.slice(1).map(function(f){return K(f)}).join('')||'<li class="idea"><p>Morgen kommt der nächste Fund.</p></li>';
+}).catch(function(){h.innerHTML='<p>Der Fund lässt sich gerade nicht laden. Ideen gibt es bei den <a href="/wichtelgeschenke/">lustigen Wichtelgeschenken</a>.</p>'})})();`,
+  app: geschenke.app,
+  faq: [
+    ['Was ist Papillons Fund des Tages?', 'Jeden Tag eine kuriose Geschenkidee, die wir selbst ausgesucht haben. Neue Funde erscheinen hier und im WhatsApp-Kanal.'],
+    ['Wo bekomme ich den Fund jeden Tag?', 'Hier auf der Seite oder im WhatsApp-Kanal <a href="https://whatsapp.com/channel/0029Vb9gGpbId7nS5nRT380l" target="_blank" rel="noopener">„Papillons Fund des Tages“</a>.'],
+    ['Warum stehen keine Preise dabei?', 'Preise ändern sich ständig. Der Link zeigt dir die aktuelle Auswahl bei Amazon.'],
+    ['Wie funktionieren die Links mit Sternchen?', 'Das sind Partnerlinks zu Amazon. Kaufst du darüber ein, bekommen wir eine kleine Provision. Für dich ändert sich nichts.'],
+  ],
+};
+
+export const PAGES = [geschenke, valentin, fragen, bauch, arten, wichteln, funde];
