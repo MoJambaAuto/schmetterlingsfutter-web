@@ -326,52 +326,59 @@ const TOP_WICHTELN = `<div class="budget"><p><b>Schnell-Suche bei Amazon:</b></p
 <a class="buy" href="https://www.amazon.de/s?k=wichtelgeschenk+lustig&amp;rh=p_36%3A-2000&amp;tag=schmetterlingsfutter-21" target="_blank" rel="sponsored noopener">bis 20 Euro *</a>
 </div>`;
 
-const wichteln = {
-  slug: 'wichtelgeschenke', ic: '🎅', crumb: 'Lustige Wichtelgeschenke', date: '2026-11-14', month: 'November 2026',
+// AE-14: Die genannten Geschenke stehen ohne Euro-Grenze. Einen Knopf bekommt ein Geschenk nur, wenn sein Fund
+// im Feed einen Link trägt (Mo hat die Produktseite geprüft) – er führt auf die eigene Fund-Seite. Sonst bleibt
+// eine Text-Karte ohne Knopf und ohne Link (Entscheidung 25.11.2026). Die vier Budget-Knöpfe oben bleiben Suchlinks.
+const WICHTEL_LIEBLINGE = [
+    { t: "Schneeballzange", p: "Formt Schneebälle wie vom Fließband. Kalte Finger gibt es nur noch beim Gegner.", fund: 'f-0010' },
+    { t: "Sudoku-Toilettenpapier", p: "Rätsel auf jedem Blatt. Für Sitzungen, die länger dauern.", fund: 'f-0011' },
+    { t: "Quietsche-Huhn", p: "Ein Gummihuhn, das beim Drücken empört schreit. Hebt jede Stimmung, außer die des Sitznachbarn.", fund: 'f-0012' },
+    { t: "Teesieb als Faultier", p: "Das Faultier hängt am Tassenrand und lässt den Tee für sich arbeiten.", fund: 'f-0013' },
+    { t: "Mini-Fingerhände", p: "Winzige Hände zum Aufstecken auf die Finger. Sinnlos und sofort im Einsatz.", fund: 'f-0015' },
+    { t: "Bananenschneider", p: "Schneidet eine Banane mit einem Druck in gleiche Scheiben. Ein Werkzeug für ein Problem, das niemand hatte.", fund: 'f-0020' },
+    { t: "Eiswürfelform als Gehirn", p: "Eiswürfel in Hirnform. Kühlt das Getränk und irritiert die Gäste.", fund: 'f-0027' },
+    { t: "Handyhalter als Liegestuhl", p: "Das Telefon liegt im winzigen Strandstuhl. Urlaub für das Gerät, wenn schon nicht für den Besitzer.", fund: 'f-0028' },
+    { t: "Notfall-Unterhose in der Dose", p: "Eine Unterhose, verpackt wie eine Konserve. Der Witz steht schon auf der Dose.", fund: 'f-0001' },
+    { t: "Taco-Halter in Dinosaurier-Form", p: "Ein Dinosaurier, der zwei Tacos auf dem Rücken trägt. Hält das Essen aufrecht und die Laune auch.", fund: 'f-0004' },
+    { t: "WC-Nachtlicht mit Bewegungsmelder", p: "Beleuchtet die Schüssel in bunten Farben, sobald sich nachts jemand nähert.", fund: 'f-0014' },
+    { t: "Pizza-Socken im Karton", p: "Socken, gefaltet und verpackt wie eine Pizza im Lieferkarton.", fund: 'f-0017' },
+    { t: "Kopfmassage-Spinne", p: "Drahtfinger, die über die Kopfhaut gleiten. Wer es einmal probiert, gibt sie nicht mehr her.", fund: 'f-0018' },
+    { t: "Entscheidungskugel fürs Büro", p: "Frage stellen, anstoßen, Antwort ablesen. Trifft Entscheidungen so gut wie manche Besprechung.", fund: 'f-0021' },
+    { t: "Türstopper als eingeklemmtes Männchen", p: "Eine kleine Figur stemmt sich mit aller Kraft gegen die Tür.", fund: 'f-0026' },
+    { t: "Tasse mit Keksfach", p: "Unten im Becher ist ein Fach für Kekse. Kaffee oben, Vorrat unten.", fund: 'f-0029' },
+    { t: "Toiletten-Golf", p: "Putting-Grün, Schläger und Bälle für das stille Örtchen. Golf dort, wo man ohnehin sitzt.", fund: 'f-0002' },
+    { t: "Schreibtisch-Boxsack", p: "Kleiner Boxsack mit Saugnapf für den Schreibtisch. Für Tage mit zu vielen Besprechungen.", fund: 'f-0003' },
+    { t: "Suppenkelle als Seeungeheuer", p: "Die Kelle steht im Topf und schaut heraus wie das Ungeheuer aus dem See.", fund: 'f-0005' },
+    { t: "Eierschalen&shy;sollbruchstellen&shy;verursacher", p: "Eine Kugel fällt am Stab herunter und knackt das Frühstücksei sauber auf. Der Name ist das halbe Geschenk.", fund: 'f-0006' },
+    { t: "Tisch-Staubsauger als Marienkäfer", p: "Ein Käfer, der Krümel vom Schreibtisch saugt. Nützlich und albern zugleich.", fund: 'f-0019' },
+    { t: "Tisch-Bowling", p: "Bahn, Kegel und Kugel im Kleinformat. Passt zwischen Tastatur und Kaffeetasse.", fund: 'f-0025' },
+];
+const WICHTEL_SCHROTT = [
+    { t: "Tortilla-Decke", p: "Runde Kuscheldecke, bedruckt wie ein Weizenfladen. Wer sich einrollt, ist die Füllung.", fund: 'f-0007' },
+    { t: "Fisch-Badelatschen", p: "Badeschuhe in Form zweier Fische. Der Fuß steckt im Maul.", fund: 'f-0008' },
+    { t: "Unnütze Maschine", p: "Ein Kasten mit Schalter. Legt man ihn um, kommt ein Finger heraus und schaltet wieder aus. Mehr kann sie nicht.", fund: 'f-0016' },
+    { t: "Weihnachtspullover mit Lichtern", p: "Strick mit eingebauten Lämpchen. Je hässlicher, desto besser für die Weihnachtsfeier.", fund: 'f-0030' },
+];
+const PRODUKT_LINK = /^https:\/\/www\.amazon\.de\/dp\/[A-Z0-9]{10}\/ref=nosim\?tag=schmetterlingsfutter-21$/;
+export const geprueftLink = (f) => (f && typeof f.link === 'string' && PRODUKT_LINK.test(f.link) ? f.link : null);
+function wichtelIdee(x, daten) {
+  const f = daten.find((e) => e.id === x.fund);
+  return geprueftLink(f) ? { t: x.t, p: x.p, href: `/funde/${f.slug}/`, label: 'Zum Fund' } : { t: x.t, p: x.p };
+}
+export function wichtelSeite(daten) {
+  return {
+  slug: 'wichtelgeschenke', ic: '🎅', crumb: 'Lustige Wichtelgeschenke', date: '2026-11-25', month: 'November 2026',
   title: 'Lustige Wichtelgeschenke bis 10, 15 und 20 Euro | Schmetterlingsfutter',
-  desc: 'Lustige Wichtelgeschenke für Kollegen, Freunde und Familie: kuriose Ideen bis 10, 15 und 20 Euro und herrlich Nutzloses fürs Schrottwichteln.',
+  desc: 'Lustige Wichtelgeschenke für Kollegen, Freunde und Familie: kuriose Ideen, eine Schnell-Suche bis 5, 10, 15 und 20 Euro und herrlich Nutzloses fürs Schrottwichteln.',
   h1: 'Lustige Wichtelgeschenke',
-  lead: 'Wichteln soll Spaß machen, nicht stressen. Hier sind <b>kuriose Ideen</b>, über die am Tisch gelacht wird – sortiert nach Budget.',
+  lead: 'Wichteln soll Spaß machen, nicht stressen. Hier sind <b>kuriose Ideen</b>, über die am Tisch gelacht wird. Oben geht es direkt zur Suche nach Budget.',
   top: TOP_WICHTELN,
   sections: [
-    { id: 'bis-10', ic: '🎁', jump: 'Bis 10 Euro', h: 'Wichtelgeschenke bis 10 Euro',
-      intro: 'Klein, albern, sofort einsatzbereit. Die Links zeigen bei Amazon nur Treffer bis 10 Euro.', ideas: [
-      { t: 'Schneeballzange', p: 'Formt Schneebälle wie vom Fließband. Kalte Finger gibt es nur noch beim Gegner.', q: 'Schneeballzange', max: 1000 },
-      { t: 'Sudoku-Toilettenpapier', p: 'Rätsel auf jedem Blatt. Für Sitzungen, die länger dauern.', q: 'Toilettenpapier Sudoku', max: 1000 },
-      { t: 'Quietsche-Huhn', p: 'Ein Gummihuhn, das beim Drücken empört schreit. Hebt jede Stimmung, außer die des Sitznachbarn.', q: 'Gummihuhn quietschend', max: 1000 },
-      { t: 'Teesieb als Faultier', p: 'Das Faultier hängt am Tassenrand und lässt den Tee für sich arbeiten.', q: 'Teesieb Faultier', max: 1000 },
-      { t: 'Mini-Fingerhände', p: 'Winzige Hände zum Aufstecken auf die Finger. Sinnlos und sofort im Einsatz.', q: 'Fingerhände Fingerpuppen', max: 1000 },
-      { t: 'Bananenschneider', p: 'Schneidet eine Banane mit einem Druck in gleiche Scheiben. Ein Werkzeug für ein Problem, das niemand hatte.', q: 'Bananenschneider', max: 1000 },
-      { t: 'Eiswürfelform als Gehirn', p: 'Eiswürfel in Hirnform. Kühlt das Getränk und irritiert die Gäste.', q: 'Eiswürfelform Gehirn', max: 1000 },
-      { t: 'Handyhalter als Liegestuhl', p: 'Das Telefon liegt im winzigen Strandstuhl. Urlaub für das Gerät, wenn schon nicht für den Besitzer.', q: 'Handyhalter Liegestuhl', max: 1000 },
-    ] },
-    { id: 'bis-15', ic: '🎁', jump: 'Bis 15 Euro', h: 'Wichtelgeschenke bis 15 Euro',
-      intro: 'Etwas mehr Budget, deutlich mehr Gelächter. Die Links zeigen bei Amazon nur Treffer bis 15 Euro.', ideas: [
-      { t: 'Notfall-Unterhose in der Dose', p: 'Eine Unterhose, verpackt wie eine Konserve. Der Witz steht schon auf der Dose.', q: 'Notfall Unterhose Dose', max: 1500 },
-      { t: 'Taco-Halter in Dinosaurier-Form', p: 'Ein Dinosaurier, der zwei Tacos auf dem Rücken trägt. Hält das Essen aufrecht und die Laune auch.', q: 'Taco Halter Dinosaurier', max: 1500 },
-      { t: 'WC-Nachtlicht mit Bewegungsmelder', p: 'Beleuchtet die Schüssel in bunten Farben, sobald sich nachts jemand nähert.', q: 'Toilettenlicht Bewegungsmelder', max: 1500 },
-      { t: 'Pizza-Socken im Karton', p: 'Socken, gefaltet und verpackt wie eine Pizza im Lieferkarton.', q: 'Pizza Socken Box', max: 1500 },
-      { t: 'Kopfmassage-Spinne', p: 'Drahtfinger, die über die Kopfhaut gleiten. Wer es einmal probiert, gibt sie nicht mehr her.', q: 'Kopfmassage Spinne', max: 1500 },
-      { t: 'Entscheidungskugel fürs Büro', p: 'Frage stellen, anstoßen, Antwort ablesen. Trifft Entscheidungen so gut wie manche Besprechung.', q: 'Entscheidungshilfe Kugel Büro', max: 1500 },
-      { t: 'Türstopper als eingeklemmtes Männchen', p: 'Eine kleine Figur stemmt sich mit aller Kraft gegen die Tür.', q: 'Türstopper Männchen', max: 1500 },
-      { t: 'Tasse mit Keksfach', p: 'Unten im Becher ist ein Fach für Kekse. Kaffee oben, Vorrat unten.', q: 'Tasse mit Keksfach', max: 1500 },
-    ] },
-    { id: 'bis-20', ic: '🎁', jump: 'Bis 20 Euro', h: 'Wichtelgeschenke bis 20 Euro',
-      intro: 'Für Runden mit großzügigem Rahmen. Die Links zeigen bei Amazon nur Treffer bis 20 Euro.', ideas: [
-      { t: 'Toiletten-Golf', p: 'Putting-Grün, Schläger und Bälle für das stille Örtchen. Golf dort, wo man ohnehin sitzt.', q: 'Toilettengolf Set', max: 2000 },
-      { t: 'Schreibtisch-Boxsack', p: 'Kleiner Boxsack mit Saugnapf für den Schreibtisch. Für Tage mit zu vielen Besprechungen.', q: 'Schreibtisch Boxsack Saugnapf', max: 2000 },
-      { t: 'Suppenkelle als Seeungeheuer', p: 'Die Kelle steht im Topf und schaut heraus wie das Ungeheuer aus dem See.', q: 'Suppenkelle Seeungeheuer', max: 2000 },
-      { t: 'Eierschalen&shy;sollbruchstellen&shy;verursacher', p: 'Eine Kugel fällt am Stab herunter und knackt das Frühstücksei sauber auf. Der Name ist das halbe Geschenk.', q: 'Eierschalensollbruchstellenverursacher', max: 2000 },
-      { t: 'Tisch-Staubsauger als Marienkäfer', p: 'Ein Käfer, der Krümel vom Schreibtisch saugt. Nützlich und albern zugleich.', q: 'Tischstaubsauger Marienkäfer', max: 2000 },
-      { t: 'Tisch-Bowling', p: 'Bahn, Kegel und Kugel im Kleinformat. Passt zwischen Tastatur und Kaffeetasse.', q: 'Tisch Bowling Mini', max: 2000 },
-    ] },
+    { id: 'lieblingsfunde', ic: '🎁', jump: 'Lieblingsfunde', h: 'Papillons Lieblingsfunde zum Wichteln',
+      intro: 'Ideen, die in fast jede Wichtelrunde passen. Wo ein Knopf steht, haben wir das Produkt einzeln angesehen. Was es kostet, siehst du bei Amazon.',
+      ideas: WICHTEL_LIEBLINGE.map((x) => wichtelIdee(x, daten)) },
     { id: 'schrott', ic: '🗑️', jump: 'Schrottwichteln', h: 'Schrottwichteln: herrlich nutzlos',
-      intro: 'Hier gewinnt, was niemand braucht und trotzdem jeder haben will.', ideas: [
-      { t: 'Tortilla-Decke', p: 'Runde Kuscheldecke, bedruckt wie ein Weizenfladen. Wer sich einrollt, ist die Füllung.', q: 'Tortilla Decke' },
-      { t: 'Fisch-Badelatschen', p: 'Badeschuhe in Form zweier Fische. Der Fuß steckt im Maul.', q: 'Fisch Badelatschen' },
-      { t: 'Unnütze Maschine', p: 'Ein Kasten mit Schalter. Legt man ihn um, kommt ein Finger heraus und schaltet wieder aus. Mehr kann sie nicht.', q: 'Useless Box' },
-      { t: 'Weihnachtspullover mit Lichtern', p: 'Strick mit eingebauten Lämpchen. Je hässlicher, desto besser für die Weihnachtsfeier.', q: 'Weihnachtspullover LED' },
-    ] },
+      intro: 'Hier gewinnt, was niemand braucht und trotzdem jeder haben will.', ideas: WICHTEL_SCHROTT.map((x) => wichtelIdee(x, daten)) },
   ],
   app: geschenke.app,
   faq: [
@@ -381,6 +388,7 @@ const wichteln = {
     ['Wie funktionieren die Links mit Sternchen?', 'Das sind Partnerlinks zu Amazon. Kaufst du darüber ein, bekommen wir eine kleine Provision. Für dich ändert sich nichts.'],
   ],
 };
+}
 
 
 // Papillons Fund des Tages (Amazon-Engine, Paket AE-07). Die Liste wird beim Bau fest in die Seite geschrieben
@@ -391,9 +399,8 @@ export const KANAL = 'https://whatsapp.com/channel/0029Vb9gGpbId7nS5nRT380l';
 const kanalKnopf = `<p class="kanal"><a class="buy app" href="${KANAL}" target="_blank" rel="noopener">💬 Jeden Tag aufs Handy: WhatsApp-Kanal folgen →</a></p>`;
 const escF = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const ttmmjjjj = (d) => `${d.slice(8, 10)}.${d.slice(5, 7)}.${d.slice(0, 4)}`;
-const fundLink = (q) => 'https://www.amazon.de/s?k=' + encodeURIComponent(q).replace(/%20/g, '+') + '&tag=schmetterlingsfutter-21';
 function fundKarte(f, gross) {
-  return `<li class="idea" id="${escF(f.slug)}"><h3><a href="/funde/${escF(f.slug)}/">${escF(gross ? f.text_h : f.titel)}</a></h3><span class="datum">${ttmmjjjj(f.datum)}</span><p>${escF(f.text_p)}</p><p class="anzeige">Anzeige</p><a class="buy" href="${escF(fundLink(f.suchbegriff))}" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a></li>`;
+  return `<li class="idea" id="${escF(f.slug)}"><h3><a href="/funde/${escF(f.slug)}/">${escF(gross ? f.text_h : f.titel)}</a></h3><span class="datum">${ttmmjjjj(f.datum)}</span><p>${escF(f.text_p)}</p>${geprueftLink(f) ? `<p class="anzeige">Anzeige</p><a class="buy" href="${escF(geprueftLink(f))}" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a>` : '<p class="neu-pruefen">Diesen Fund prüfen wir gerade neu.</p>'}</li>`;
 }
 export function fundeDatenLesen() {
   const pfad = join(dirname(fileURLToPath(import.meta.url)), 'funde-daten.json');
@@ -414,13 +421,13 @@ export function fundeSeite(daten) {
         html: `<div id="fdt-heute" data-datum="${neu ? neu.datum : ''}">${neu ? `<ul class="ideas">${fundKarte(neu, true)}</ul>` : '<p>Der erste Fund kommt bald.</p>'}</div>${kanalKnopf}` },
       ...(liste.length > 1 ? [{ id: 'alle', ic: '🗂️', jump: 'Alle Funde', h: 'Alle bisherigen Funde', html: `<ul class="ideas" id="fdt-alle">${liste.slice(1).map((f) => fundKarte(f)).join('')}</ul>` }] : []),
     ],
-    script: `(function(){var T='schmetterlingsfutter-21',F='${FEED}';var h=document.getElementById('fdt-heute');if(!h)return;var d0=h.getAttribute('data-datum')||'';
+    script: `(function(){var F='${FEED}';var h=document.getElementById('fdt-heute');if(!h)return;var d0=h.getAttribute('data-datum')||'';
 function e(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
-function L(q){return 'https://www.amazon.de/s?k='+encodeURIComponent(q).replace(/%20/g,'+')+'&tag='+T}
+var R=/^https:\/\/www\.amazon\.de\/dp\/[A-Z0-9]{10}\/ref=nosim\?tag=schmetterlingsfutter-21$/;
 function D(d){return d.slice(8,10)+'.'+d.slice(5,7)+'.'+d.slice(0,4)}
 fetch(F,{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(l){
 l=(l||[]).slice().sort(function(x,y){return x.datum<y.datum?1:-1});var f=l[0];if(!f||!(f.datum>d0))return;
-h.innerHTML='<ul class="ideas"><li class="idea"><h3>'+e(f.text_h)+'</h3><span class="datum">'+D(f.datum)+'</span><p>'+e(f.text_p)+'</p><p class="anzeige">Anzeige</p><a class="buy" href="'+e(L(f.suchbegriff))+'" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a></li></ul>';
+h.innerHTML='<ul class="ideas"><li class="idea"><h3>'+e(f.text_h)+'</h3><span class="datum">'+D(f.datum)+'</span><p>'+e(f.text_p)+'</p>'+(f.link&&R.test(f.link)?'<p class="anzeige">Anzeige</p><a class="buy" href="'+e(f.link)+'" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a>':'<p class="neu-pruefen">Diesen Fund prüfen wir gerade neu.</p>')+'</li></ul>';
 }).catch(function(){})})();`,
     app: geschenke.app,
     disclose: '* Partnerlink: Kaufst du darüber ein, bekommen wir eine kleine Provision. Am Preis ändert sich für dich nichts. Als Amazon-Partner verdienen wir an qualifizierten Verkäufen. Die Funde wählen wir selbst aus.',
@@ -432,6 +439,8 @@ h.innerHTML='<ul class="ideas"><li class="idea"><h3>'+e(f.text_h)+'</h3><span cl
     ],
   };
 }
-const funde = fundeSeite(fundeDatenLesen());
+const fundeDaten = fundeDatenLesen();
+const funde = fundeSeite(fundeDaten);
+const wichteln = wichtelSeite(fundeDaten);
 
 export const PAGES = [geschenke, valentin, fragen, bauch, arten, wichteln, funde];

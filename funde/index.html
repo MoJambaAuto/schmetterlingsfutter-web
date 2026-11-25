@@ -37,7 +37,7 @@
 <p class="lead">Jeden Tag stöbert Papillon einen <b>kuriosen Fund</b> auf. Gibt es wirklich, ist meistens albern und taugt fast immer als Geschenk.</p>
 <p class="meta">Aktualisiert im November 2026 · Links mit * sind Partnerlinks</p>
 
-<section id="heute"><h2><span class="ic" aria-hidden="true">✨</span>Der Fund von heute</h2><div id="fdt-heute" data-datum="2026-11-25"><ul class="ideas"><li class="idea" id="f-0001-notfall-unterhose-in-der-dose"><h3><a href="/funde/f-0001-notfall-unterhose-in-der-dose/">Gibt es wirklich: Notfall-Unterhose in der Dose</a></h3><span class="datum">25.11.2026</span><p>Eine Unterhose, verpackt wie eine Konserve. Der Witz steht schon auf der Dose, du musst sie nur noch überreichen. Passt zu jeder Wichtelrunde mit Kollegen. Über den Knopf siehst du die Auswahl bei Amazon.</p><p class="anzeige">Anzeige</p><a class="buy" href="https://www.amazon.de/s?k=Notfall+Unterhose+Dose&amp;tag=schmetterlingsfutter-21" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a></li></ul></div><p class="kanal"><a class="buy app" href="https://whatsapp.com/channel/0029Vb9gGpbId7nS5nRT380l" target="_blank" rel="noopener">💬 Jeden Tag aufs Handy: WhatsApp-Kanal folgen →</a></p></section>
+<section id="heute"><h2><span class="ic" aria-hidden="true">✨</span>Der Fund von heute</h2><div id="fdt-heute" data-datum="2026-11-25"><ul class="ideas"><li class="idea" id="f-0001-notfall-unterhose-in-der-dose"><h3><a href="/funde/f-0001-notfall-unterhose-in-der-dose/">Gibt es wirklich: Notfall-Unterhose in der Dose</a></h3><span class="datum">25.11.2026</span><p>Eine Unterhose, verpackt wie eine Konserve. Der Witz steht schon auf der Dose, du musst sie nur noch überreichen. Passt zu jeder Wichtelrunde mit Kollegen. Über den Knopf siehst du die Auswahl bei Amazon.</p><p class="neu-pruefen">Diesen Fund prüfen wir gerade neu.</p></li></ul></div><p class="kanal"><a class="buy app" href="https://whatsapp.com/channel/0029Vb9gGpbId7nS5nRT380l" target="_blank" rel="noopener">💬 Jeden Tag aufs Handy: WhatsApp-Kanal folgen →</a></p></section>
 <aside class="appbox">
   <h2>Nie wieder ratlos vor dem Geburtstag</h2>
   <p>In <b>Schmetterlingsfutter</b> sammelst du die Wünsche deines Schatzes, sobald sie fallen, und wirst rechtzeitig an Jahrestag und Geburtstag erinnert. Kostenlos – deine Einträge bleiben auf deinem Handy.</p>
@@ -56,13 +56,13 @@
   © 2026 Schmetterlingsfutter · MoJamba – Stefan Wilhelm Münch, Alfter
 </footer>
 </div>
-<script>(function(){var T='schmetterlingsfutter-21',F='https://mojambaauto.github.io/amazon-engine/feed/funde.json';var h=document.getElementById('fdt-heute');if(!h)return;var d0=h.getAttribute('data-datum')||'';
+<script>(function(){var F='https://mojambaauto.github.io/amazon-engine/feed/funde.json';var h=document.getElementById('fdt-heute');if(!h)return;var d0=h.getAttribute('data-datum')||'';
 function e(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
-function L(q){return 'https://www.amazon.de/s?k='+encodeURIComponent(q).replace(/%20/g,'+')+'&tag='+T}
+var R=/^https://www.amazon.de/dp/[A-Z0-9]{10}/ref=nosim?tag=schmetterlingsfutter-21$/;
 function D(d){return d.slice(8,10)+'.'+d.slice(5,7)+'.'+d.slice(0,4)}
 fetch(F,{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(l){
 l=(l||[]).slice().sort(function(x,y){return x.datum<y.datum?1:-1});var f=l[0];if(!f||!(f.datum>d0))return;
-h.innerHTML='<ul class="ideas"><li class="idea"><h3>'+e(f.text_h)+'</h3><span class="datum">'+D(f.datum)+'</span><p>'+e(f.text_p)+'</p><p class="anzeige">Anzeige</p><a class="buy" href="'+e(L(f.suchbegriff))+'" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a></li></ul>';
+h.innerHTML='<ul class="ideas"><li class="idea"><h3>'+e(f.text_h)+'</h3><span class="datum">'+D(f.datum)+'</span><p>'+e(f.text_p)+'</p>'+(f.link&&R.test(f.link)?'<p class="anzeige">Anzeige</p><a class="buy" href="'+e(f.link)+'" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a>':'<p class="neu-pruefen">Diesen Fund prüfen wir gerade neu.</p>')+'</li></ul>';
 }).catch(function(){})})();</script>
 <script>addEventListener('load',function(){var s=document.createElement('script');s.src='/js/falter.js';document.body.appendChild(s)})</script>
 </body></html>

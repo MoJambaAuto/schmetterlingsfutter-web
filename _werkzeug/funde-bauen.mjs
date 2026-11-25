@@ -6,8 +6,8 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { SITE, PAGES, KANAL, fundeSeite } from './ratgeber-inhalte.mjs';
-import { APP, esc, amazon, rahmen } from './rahmen.mjs';
+import { SITE, PAGES, KANAL, fundeSeite, wichtelSeite, geprueftLink } from './ratgeber-inhalte.mjs';
+import { APP, esc, rahmen } from './rahmen.mjs';
 import { ROOT, page } from './ratgeber-bauen.mjs';
 
 export const FEED_URL = 'https://mojambaauto.github.io/amazon-engine/feed/funde.json';
@@ -20,7 +20,8 @@ const VERBOTENE_MUSTER = [
   '(bit\\.ly|tinyurl|t\\.co|goo\\.gl|ow\\.ly)',
 ];
 export const WEB_HINWEIS = '* Partnerlink: Kaufst du darüber ein, bekommen wir eine kleine Provision. Am Preis ändert sich für dich nichts. Als Amazon-Partner verdienen wir an qualifizierten Verkäufen. Die Funde wählen wir selbst aus.';
-const PFLICHT = ['id', 'slug', 'datum', 'titel', 'text_h', 'text_p', 'suchbegriff'];
+// AE-14: kein suchbegriff mehr – der Knopf nimmt das Feld link aus dem Feed (nur das Produkt-Muster, sonst kein Knopf)
+const PFLICHT = ['id', 'slug', 'datum', 'titel', 'text_h', 'text_p'];
 const ttmmjjjj = (d) => `${d.slice(8, 10)}.${d.slice(5, 7)}.${d.slice(0, 4)}`;
 
 // Liefert { gueltig, fehler } – gueltig neueste zuerst, je slug nur der neueste Eintrag.
@@ -65,8 +66,8 @@ export function fundSeite(f) {
 <h1>${esc(f.text_h)}</h1>
 <p class="meta">Papillons Fund des Tages · ${ttmmjjjj(f.datum)}</p>
 <p class="lead">${esc(f.text_p)}</p>
-<p class="anzeige">Anzeige</p>
-<a class="buy" href="${esc(amazon(f.suchbegriff))}" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a>
+${geprueftLink(f) ? `<p class="anzeige">Anzeige</p>
+<a class="buy" href="${esc(geprueftLink(f))}" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a>` : '<p class="neu-pruefen">Diesen Fund prüfen wir gerade neu.</p>'}
 <ul class="more fund-weiter"><li><a href="/funde/"><span aria-hidden="true">🔍</span>Alle Funde →</a></li><li><a href="${KANAL}" target="_blank" rel="noopener"><span aria-hidden="true">💬</span>Jeden Tag im WhatsApp-Kanal</a></li><li><a href="/wichtelgeschenke/"><span aria-hidden="true">🎅</span>Lustige Wichtelgeschenke</a></li></ul>
 <aside class="appbox">
   <h2>${esc(app.h)}</h2>
@@ -100,6 +101,8 @@ export function bauen(feed, ziel = ROOT) {
   for (const f of gueltig) geaendert += schreiben(join(ziel, 'funde', f.slug, 'index.html'), fundSeite(f));
   geaendert += schreiben(join(ziel, '_werkzeug', 'funde-daten.json'), JSON.stringify(gueltig, null, 2) + '\n');
   geaendert += schreiben(join(ziel, 'funde', 'index.html'), page(fundeSeite(gueltig)));
+  // AE-14: Wichtel-Seite täglich mitbauen – ein Geschenk bekommt seinen Knopf, sobald sein Fund geprüft im Feed steht
+  geaendert += schreiben(join(ziel, 'wichtelgeschenke', 'index.html'), page(wichtelSeite(gueltig)));
   geaendert += schreiben(join(ziel, 'sitemap-funde.xml'), sitemap(gueltig));
   const robotsPfad = join(ziel, 'robots.txt');
   const robots = existsSync(robotsPfad) ? readFileSync(robotsPfad, 'utf8').replace(/\r\n/g, '\n') : 'User-agent: *\nAllow: /\n';
