@@ -11,6 +11,8 @@ import { APP, esc, strip, amazon, rahmen } from './rahmen.mjs';
 export const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 function link(it) {
+  // AE-14 Nachtrag: geprüfter Fund – direkt zur Produktseite (genau ein Amazon-Link je Karte)
+  if (it.produkt) return `<p class="anzeige">Anzeige</p><a class="buy" href="${esc(it.produkt)}" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a>`;
   if (it.q) return `<a class="buy" href="${esc(amazon(it.q, it.max))}" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a>`;
   if (it.app) return `<a class="buy app" href="${APP}">${esc(it.app)} →</a>`;
   if (it.href) return `<a class="buy" href="${esc(it.href)}"${/^https?:/.test(it.href) ? ' target="_blank" rel="noopener"' : ''}>${esc(it.label)} →</a>`;

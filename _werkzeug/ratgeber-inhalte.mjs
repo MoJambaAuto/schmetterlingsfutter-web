@@ -361,11 +361,20 @@ const WICHTEL_SCHROTT = [
 ];
 const PRODUKT_LINK = /^https:\/\/www\.amazon\.de\/dp\/[A-Z0-9]{10}\/ref=nosim\?tag=schmetterlingsfutter-21$/;
 export const geprueftLink = (f) => (f && typeof f.link === 'string' && PRODUKT_LINK.test(f.link) ? f.link : null);
-function wichtelIdee(x, daten) {
+// AE-14 Nachtrag: Link aus der Liste aller geprüften Funde der Engine (feed/geprueft.json, abgelegt als
+// _werkzeug/geprueft-daten.json). Mit gültiger Prüfung: „Anzeige“ + Knopf direkt zur Produktseite; gibt es schon
+// eine Fund-Seite, verlinkt zusätzlich die Überschrift dorthin. Ohne gültige Prüfung: Text-Karte.
+function wichtelIdee(x, daten, geprueft) {
+  const g = geprueft.find((e) => e.id === x.fund);
+  if (!geprueftLink(g)) return { t: x.t, p: x.p };
   const f = daten.find((e) => e.id === x.fund);
-  return geprueftLink(f) ? { t: x.t, p: x.p, href: `/funde/${f.slug}/`, label: 'Zum Fund' } : { t: x.t, p: x.p };
+  return { t: f ? `<a href="/funde/${escF(f.slug)}/">${x.t}</a>` : x.t, p: x.p, produkt: geprueftLink(g) };
 }
-export function wichtelSeite(daten) {
+export function geprueftDatenLesen() {
+  const pfad = join(dirname(fileURLToPath(import.meta.url)), 'geprueft-daten.json');
+  try { const d = JSON.parse(readFileSync(pfad, 'utf8')); return Array.isArray(d) ? d : []; } catch { return []; }
+}
+export function wichtelSeite(daten, geprueft = []) {
   return {
   slug: 'wichtelgeschenke', ic: '🎅', crumb: 'Lustige Wichtelgeschenke', date: '2026-11-25', month: 'November 2026',
   title: 'Lustige Wichtelgeschenke bis 10, 15 und 20 Euro | Schmetterlingsfutter',
@@ -376,9 +385,9 @@ export function wichtelSeite(daten) {
   sections: [
     { id: 'lieblingsfunde', ic: '🎁', jump: 'Lieblingsfunde', h: 'Papillons Lieblingsfunde zum Wichteln',
       intro: 'Ideen, die in fast jede Wichtelrunde passen. Wo ein Knopf steht, haben wir das Produkt einzeln angesehen. Was es kostet, siehst du bei Amazon.',
-      ideas: WICHTEL_LIEBLINGE.map((x) => wichtelIdee(x, daten)) },
+      ideas: WICHTEL_LIEBLINGE.map((x) => wichtelIdee(x, daten, geprueft)) },
     { id: 'schrott', ic: '🗑️', jump: 'Schrottwichteln', h: 'Schrottwichteln: herrlich nutzlos',
-      intro: 'Hier gewinnt, was niemand braucht und trotzdem jeder haben will.', ideas: WICHTEL_SCHROTT.map((x) => wichtelIdee(x, daten)) },
+      intro: 'Hier gewinnt, was niemand braucht und trotzdem jeder haben will.', ideas: WICHTEL_SCHROTT.map((x) => wichtelIdee(x, daten, geprueft)) },
   ],
   app: geschenke.app,
   faq: [
@@ -441,6 +450,6 @@ h.innerHTML='<ul class="ideas"><li class="idea"><h3>'+e(f.text_h)+'</h3><span cl
 }
 const fundeDaten = fundeDatenLesen();
 const funde = fundeSeite(fundeDaten);
-const wichteln = wichtelSeite(fundeDaten);
+const wichteln = wichtelSeite(fundeDaten, geprueftDatenLesen());
 
 export const PAGES = [geschenke, valentin, fragen, bauch, arten, wichteln, funde];

@@ -6,11 +6,13 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { SITE, PAGES, KANAL, fundeSeite, wichtelSeite, geprueftLink } from './ratgeber-inhalte.mjs';
+import { SITE, PAGES, KANAL, fundeSeite, wichtelSeite, geprueftLink, geprueftDatenLesen } from './ratgeber-inhalte.mjs';
 import { APP, esc, rahmen } from './rahmen.mjs';
 import { ROOT, page } from './ratgeber-bauen.mjs';
 
 export const FEED_URL = 'https://mojambaauto.github.io/amazon-engine/feed/funde.json';
+// AE-14 Nachtrag: alle Funde mit gültiger Sichtprüfung (für die Wichtel-Seite)
+export const GEPRUEFT_URL = 'https://mojambaauto.github.io/amazon-engine/feed/geprueft.json';
 // Kopie aus amazon-engine/config.json (verbotene_muster, Schalter i und u) und pflichttexte.web_hinweis
 const VERBOTENE_MUSTER = [
   '\\d\\s?(€|Euro|EUR)',
@@ -95,20 +97,30 @@ function schreiben(pfad, inhalt) {
   return true;
 }
 
-export function bauen(feed, ziel = ROOT) {
+// geprueft: Liste aus feed/geprueft.json; null = nicht erreichbar → letzte Kopie (_werkzeug/geprueft-daten.json)
+export function bauen(feed, ziel = ROOT, geprueft = null) {
   const { gueltig, fehler } = pruefen(feed);
   let geaendert = 0;
   for (const f of gueltig) geaendert += schreiben(join(ziel, 'funde', f.slug, 'index.html'), fundSeite(f));
   geaendert += schreiben(join(ziel, '_werkzeug', 'funde-daten.json'), JSON.stringify(gueltig, null, 2) + '\n');
   geaendert += schreiben(join(ziel, 'funde', 'index.html'), page(fundeSeite(gueltig)));
-  // AE-14: Wichtel-Seite täglich mitbauen – ein Geschenk bekommt seinen Knopf, sobald sein Fund geprüft im Feed steht
-  geaendert += schreiben(join(ziel, 'wichtelgeschenke', 'index.html'), page(wichtelSeite(gueltig)));
+  // AE-14: Wichtel-Seite täglich mitbauen – ein Geschenk bekommt seinen Knopf, sobald sein Fund geprüft ist
+  const gepruefteListe = Array.isArray(geprueft)
+    ? geprueft.filter((e) => e && /^f-\d{4}$/.test(e.id) && geprueftLink(e)).map((e) => ({ id: e.id, link: e.link, gueltig_bis: e.gueltig_bis ?? null }))
+    : geprueftDatenLesenAus(ziel);
+  if (Array.isArray(geprueft)) geaendert += schreiben(join(ziel, '_werkzeug', 'geprueft-daten.json'), JSON.stringify(gepruefteListe, null, 2) + '\n');
+  geaendert += schreiben(join(ziel, 'wichtelgeschenke', 'index.html'), page(wichtelSeite(gueltig, gepruefteListe)));
   geaendert += schreiben(join(ziel, 'sitemap-funde.xml'), sitemap(gueltig));
   const robotsPfad = join(ziel, 'robots.txt');
   const robots = existsSync(robotsPfad) ? readFileSync(robotsPfad, 'utf8').replace(/\r\n/g, '\n') : 'User-agent: *\nAllow: /\n';
   const zeile = `Sitemap: ${SITE}/sitemap-funde.xml`;
   if (!robots.split('\n').includes(zeile)) geaendert += schreiben(robotsPfad, robots.replace(/\n*$/, '\n') + zeile + '\n');
   return { gueltig, fehler, geaendert };
+}
+
+function geprueftDatenLesenAus(ziel) {
+  if (resolve(ziel) === resolve(ROOT)) return geprueftDatenLesen();
+  try { const d = JSON.parse(readFileSync(join(ziel, '_werkzeug', 'geprueft-daten.json'), 'utf8')); return Array.isArray(d) ? d : []; } catch { return []; }
 }
 
 export async function feedLaden({ datei, url = FEED_URL } = {}) {
@@ -135,7 +147,15 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     console.log('Feed ist keine Liste – nichts geändert.');
     process.exit(0);
   }
-  const { gueltig, fehler, geaendert } = bauen(feed, resolve(argWert('--ziel') ?? ROOT));
+  let geprueft = null;
+  try {
+    geprueft = await feedLaden({ datei: argWert('--geprueft'), url: argWert('--geprueft-url') ?? GEPRUEFT_URL });
+    if (!Array.isArray(geprueft)) throw new Error('keine Liste');
+  } catch (e) {
+    geprueft = null;
+    console.log(`Liste geprüfter Funde nicht erreichbar (${e.message}) – Wichtel-Seite nutzt die letzte Kopie.`);
+  }
+  const { gueltig, fehler, geaendert } = bauen(feed, resolve(argWert('--ziel') ?? ROOT), geprueft);
   for (const x of fehler) console.log('übersprungen:', x);
   console.log(`funde: ${gueltig.length} Fund-Seiten, ${geaendert} Dateien geändert`);
 }
