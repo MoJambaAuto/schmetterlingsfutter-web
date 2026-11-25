@@ -158,3 +158,11 @@ footer .links{display:flex;flex-wrap:wrap;gap:6px 18px;margin-bottom:12px}
 /* Lange Wörter (z. B. Eierschalensollbruchstellenverursacher) dürfen die Ideen-Karten nicht verbreitern */
 .idea{min-width:0}
 .idea h3{overflow-wrap:anywhere;hyphens:auto}
+
+/* Papillons Fund des Tages (AE-07): Datum (eigene Klasse statt .price), Anzeige-Hinweis, Fund-Seiten */
+.datum{display:inline-block;align-self:flex-start;font-size:16px;font-weight:700;color:var(--text);background:rgba(255,100,150,.18);border-radius:999px;padding:3px 12px;font-variant-numeric:tabular-nums}
+.idea h3 a{color:var(--text);text-decoration:none}
+.idea h3 a:hover{text-decoration:underline}
+.anzeige{font-size:16px;font-weight:700;color:var(--text-muted);margin:8px 0 6px}
+main > .buy{margin-bottom:8px}
+.fund-weiter{margin-top:28px}

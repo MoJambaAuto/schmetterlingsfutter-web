@@ -1,0 +1,35 @@
+# Täglich die festen Fund-Seiten aus dem Feed der Amazon-Engine bauen (Paket AE-07).
+# Feed nicht erreichbar oder leer: das Skript ändert nichts und endet mit Exit-Code 0.
+name: Funde
+on:
+  schedule:
+    - cron: '40 4 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: funde
+  cancel-in-progress: false
+jobs:
+  funde:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Fund-Seiten bauen
+        run: node _werkzeug/funde-bauen.mjs
+      - name: Änderungen sichern und Seite neu bauen lassen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add funde sitemap-funde.xml robots.txt _werkzeug/funde-daten.json
+          if git diff --cached --quiet; then
+            echo "keine Änderungen"
+          else
+            git -c user.name="Claude (MoJambaAuto)" -c user.email="mojamba.automation@gmail.com" commit -m "Funde $(TZ=Europe/Berlin date +%F)"
+            git push
+            gh api -X POST repos/${{ github.repository }}/pages/builds || echo "Pages-Bau konnte nicht angestoßen werden"
+          fi

@@ -36,9 +36,8 @@
 
 <p class="lead">Jeden Tag stöbert Papillon einen <b>kuriosen Fund</b> auf. Gibt es wirklich, ist meistens albern und taugt fast immer als Geschenk.</p>
 <p class="meta">Aktualisiert im November 2026 · Links mit * sind Partnerlinks</p>
-<ul class="jump" aria-label="Inhalt"><li><a href="#heute">✨ Heute</a></li><li><a href="#alle">🗂️ Alle Funde</a></li></ul>
-<section id="heute"><h2><span class="ic" aria-hidden="true">✨</span>Der Fund von heute</h2><div id="fdt-heute"><p>Der heutige Fund lädt …</p></div><noscript><p>Die Funde brauchen JavaScript. Viele Ideen findest du auch bei den <a href="/wichtelgeschenke/">lustigen Wichtelgeschenken</a>.</p></noscript></section>
-<section id="alle"><h2><span class="ic" aria-hidden="true">🗂️</span>Alle bisherigen Funde</h2><ul class="ideas" id="fdt-alle"></ul></section>
+<ul class="jump" aria-label="Inhalt"><li><a href="#heute">✨ Heute</a></li></ul>
+<section id="heute"><h2><span class="ic" aria-hidden="true">✨</span>Der Fund von heute</h2><div id="fdt-heute" data-datum="2026-11-25"><ul class="ideas"><li class="idea" id="f-0001-notfall-unterhose-in-der-dose"><h3><a href="/funde/f-0001-notfall-unterhose-in-der-dose/">Gibt es wirklich: Notfall-Unterhose in der Dose</a></h3><span class="datum">25.11.2026</span><p>Eine Unterhose, verpackt wie eine Konserve. Der Witz steht schon auf der Dose, du musst sie nur noch überreichen. Passt zu jeder Wichtelrunde mit Kollegen. Über den Knopf siehst du die Auswahl bei Amazon.</p><p class="anzeige">Anzeige</p><a class="buy" href="https://www.amazon.de/s?k=Notfall+Unterhose+Dose&amp;tag=schmetterlingsfutter-21" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a></li></ul></div></section>
 <aside class="appbox">
   <h2>Nie wieder ratlos vor dem Geburtstag</h2>
   <p>In <b>Schmetterlingsfutter</b> sammelst du die Wünsche deines Schatzes, sobald sie fallen, und wirst rechtzeitig an Jahrestag und Geburtstag erinnert. Kostenlos – deine Einträge bleiben auf deinem Handy.</p>
@@ -57,15 +56,13 @@
   © 2026 Schmetterlingsfutter · MoJamba – Stefan Wilhelm Münch, Alfter
 </footer>
 </div>
-<script>(function(){var T='schmetterlingsfutter-21',F='https://mojambaauto.github.io/amazon-engine/feed/funde.json';
+<script>(function(){var T='schmetterlingsfutter-21',F='https://mojambaauto.github.io/amazon-engine/feed/funde.json';var h=document.getElementById('fdt-heute');if(!h)return;var d0=h.getAttribute('data-datum')||'';
 function e(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function L(q){return 'https://www.amazon.de/s?k='+encodeURIComponent(q).replace(/%20/g,'+')+'&tag='+T}
 function D(d){return d.slice(8,10)+'.'+d.slice(5,7)+'.'+d.slice(0,4)}
-function K(f,big){return '<li class="idea" id="'+e(f.slug)+'"><h3>'+e(big?f.text_h:f.titel)+'</h3><span class="price">'+D(f.datum)+'</span><p>'+e(f.text_p)+'</p><a class="buy" href="'+e(L(f.suchbegriff))+'" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a></li>'}
-var h=document.getElementById('fdt-heute'),a=document.getElementById('fdt-alle');
 fetch(F,{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(l){
-l=(l||[]).slice().sort(function(x,y){return x.datum<y.datum?1:-1});
-if(!l.length)throw 0;h.innerHTML='<ul class="ideas">'+K(l[0],1)+'</ul>';a.innerHTML=l.slice(1).map(function(f){return K(f)}).join('')||'<li class="idea"><p>Morgen kommt der nächste Fund.</p></li>';
-}).catch(function(){h.innerHTML='<p>Der Fund lässt sich gerade nicht laden. Ideen gibt es bei den <a href="/wichtelgeschenke/">lustigen Wichtelgeschenken</a>.</p>'})})();</script>
+l=(l||[]).slice().sort(function(x,y){return x.datum<y.datum?1:-1});var f=l[0];if(!f||!(f.datum>d0))return;
+h.innerHTML='<ul class="ideas"><li class="idea"><h3>'+e(f.text_h)+'</h3><span class="datum">'+D(f.datum)+'</span><p>'+e(f.text_p)+'</p><p class="anzeige">Anzeige</p><a class="buy" href="'+e(L(f.suchbegriff))+'" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a></li></ul>';
+}).catch(function(){})})();</script>
 <script>addEventListener('load',function(){var s=document.createElement('script');s.src='/js/falter.js';document.body.appendChild(s)})</script>
 </body></html>

@@ -1,19 +1,14 @@
 // Baut die Ratgeber-Seiten von schmetterlingsfutter.de aus den Inhalten in ratgeber-inhalte.mjs.
 // Aufruf (im Repo-Ordner):  node _werkzeug/ratgeber-bauen.mjs
 // Ergebnis: <slug>/index.html je Seite und sitemap.xml. Ordner mit _ veröffentlicht GitHub Pages nicht.
+// Kopf, Kopfzeile und Fuß kommen aus rahmen.mjs (gemeinsam mit funde-bauen.mjs).
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { SITE, PAGES } from './ratgeber-inhalte.mjs';
+import { APP, esc, strip, amazon, rahmen } from './rahmen.mjs';
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const TAG = 'schmetterlingsfutter-21';
-const APP = 'https://app.schmetterlingsfutter.de/';
-const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-const strip = (s) => String(s).replace(/<[^>]+>/g, '');
-// max = Preisfilter in Cent (optional): setzt bei Amazon &rh=p_36%3A-<max>, also nur Treffer bis zu diesem Betrag.
-const amazon = (q, max) => 'https://www.amazon.de/s?k=' + encodeURIComponent(q).replace(/%20/g, '+')
-  + (max > 0 ? '&rh=p_36%3A-' + Math.round(max) : '') + '&tag=' + TAG;
+export const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 function link(it) {
   if (it.q) return `<a class="buy" href="${esc(amazon(it.q, it.max))}" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a>`;
@@ -47,7 +42,7 @@ function section(s) {
   return `<section id="${s.id}"><h2><span class="ic" aria-hidden="true">${s.ic}</span>${s.h}</h2>${body}</section>`;
 }
 
-function page(p) {
+export function page(p) {
   const url = SITE + '/' + p.slug + '/';
   const others = PAGES.filter((o) => o.slug !== p.slug);
   const ld = [
@@ -60,40 +55,7 @@ function page(p) {
       { '@type': 'ListItem', position: 2, name: p.crumb, item: url }] },
     { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: p.faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: strip(a) } })) },
   ];
-  return `<!doctype html>
-<html lang="de">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>${esc(p.title)}</title>
-<meta name="description" content="${esc(p.desc)}">
-<meta name="theme-color" content="#1a0a1e">
-<link rel="canonical" href="${url}">
-<meta property="og:type" content="article">
-<meta property="og:locale" content="de_DE">
-<meta property="og:site_name" content="Schmetterlingsfutter">
-<meta property="og:url" content="${url}">
-<meta property="og:title" content="${esc(p.ogTitle || p.h1)}">
-<meta property="og:description" content="${esc(p.desc)}">
-<meta property="og:image" content="${SITE}/og-image.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/svg+xml" href="${APP}icons/icon.svg">
-<link rel="apple-touch-icon" href="${APP}icons/apple-touch-icon.png">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/Lato-400.woff2">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/PlayfairDisplay-400i.woff2">
-<link rel="stylesheet" href="/ratgeber.css">
-<script type="application/ld+json">${JSON.stringify(ld)}</script>
-</head>
-<body>
-<div class="wrap">
-<header class="top">
-  <a class="brand" href="/"><img src="${APP}icons/icon.svg" alt="" width="36" height="36"><span>Schmetterlingsfutter</span></a>
-  <a class="pill" href="${APP}">App öffnen <span aria-hidden="true">→</span></a>
-</header>
-<main>
-<nav class="crumbs" aria-label="Brotkrumen"><a href="/">Start</a> › ${esc(p.crumb)}</nav>
+  const main = `<nav class="crumbs" aria-label="Brotkrumen"><a href="/">Start</a> › ${esc(p.crumb)}</nav>
 <h1>${esc(p.h1)}</h1>
 ${p.top || ''}
 <p class="lead">${p.lead}</p>
@@ -111,30 +73,28 @@ ${p.sections.map(section).join('\n')}
 <section><h2><span class="ic" aria-hidden="true">🦋</span>Mehr Ideen für euch</h2>
 <ul class="more">${others.map((o) => `<li><a href="/${o.slug}/"><span aria-hidden="true">${o.ic}</span>${esc(o.crumb)}</a></li>`).join('')}<li><a href="/"><span aria-hidden="true">📲</span>Die Paar-App Schmetterlingsfutter</a></li></ul>
 </section>
-<p class="disclose">* Partnerlink: Kaufst du darüber ein, bekommen wir eine kleine Provision. Am Preis ändert sich für dich nichts. Als Amazon-Partner verdienen wir an qualifizierten Verkäufen. Die Ideen wählen wir selbst aus. Budget-Angaben sind grobe Einordnungen, keine Preise.</p>
-</main>
-<footer>
-  <div class="links"><a href="/">Startseite</a>${PAGES.map((o) => `<a href="/${o.slug}/">${esc(o.crumb)}</a>`).join('')}<a href="${APP}privacy.html">Datenschutz</a><a href="/#impressum">Impressum</a></div>
-  © 2026 Schmetterlingsfutter · MoJamba – Stefan Wilhelm Münch, Alfter
-</footer>
-</div>
-${p.script ? `<script>${p.script}</script>` : ''}
-<script>addEventListener('load',function(){var s=document.createElement('script');s.src='/js/falter.js';document.body.appendChild(s)})</script>
-</body></html>
-`;
+<p class="disclose">* Partnerlink: Kaufst du darüber ein, bekommen wir eine kleine Provision. Am Preis ändert sich für dich nichts. Als Amazon-Partner verdienen wir an qualifizierten Verkäufen. Die Ideen wählen wir selbst aus. Budget-Angaben sind grobe Einordnungen, keine Preise.</p>`;
+  return rahmen({ title: p.title, desc: p.desc, url, ogTitle: p.ogTitle || p.h1, ld, main, pages: PAGES, script: p.script });
 }
 
-for (const p of PAGES) {
-  const file = join(ROOT, p.slug, 'index.html');
+export function seiteSchreiben(p, ziel = ROOT) {
+  const file = join(ziel, p.slug, 'index.html');
   mkdirSync(dirname(file), { recursive: true });
   writeFileSync(file, page(p));
-  console.log('gebaut:', p.slug + '/index.html');
+  return file;
 }
-const today = new Date().toISOString().slice(0, 10);
-const urls = [{ loc: SITE + '/', mod: today }, ...PAGES.map((p) => ({ loc: SITE + '/' + p.slug + '/', mod: p.date }))];
-writeFileSync(join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  for (const p of PAGES) {
+    seiteSchreiben(p);
+    console.log('gebaut:', p.slug + '/index.html');
+  }
+  const today = new Date().toISOString().slice(0, 10);
+  const urls = [{ loc: SITE + '/', mod: today }, ...PAGES.map((p) => ({ loc: SITE + '/' + p.slug + '/', mod: p.date }))];
+  writeFileSync(join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((u) => `  <url>\n    <loc>${u.loc}</loc>\n    <lastmod>${u.mod}</lastmod>\n  </url>`).join('\n')}
 </urlset>
 `);
-console.log('gebaut: sitemap.xml (' + urls.length + ' Adressen)');
+  console.log('gebaut: sitemap.xml (' + urls.length + ' Adressen)');
+}
