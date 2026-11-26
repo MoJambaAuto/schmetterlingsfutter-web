@@ -1,5 +1,20 @@
 [
   {
+    "id": "f-0004",
+    "slug": "f-0004-taco-halter-in-dinosaurier-form",
+    "datum": "2026-11-26",
+    "titel": "Taco-Halter in Dinosaurier-Form",
+    "text_h": "Taco-Halter als Dinosaurier: Abendessen auf dem Rücken",
+    "text_p": "Ein Dinosaurier, der zwei Tacos auf dem Rücken trägt. Er hält das Essen aufrecht und die Laune gleich mit. Für Taco-Abende mit Familie oder Freunden. Der Knopf führt direkt zum Produkt bei Amazon.",
+    "asin": "B07BP8HZVS",
+    "link": "https://www.amazon.de/dp/B07BP8HZVS/ref=nosim?tag=schmetterlingsfutter-21",
+    "anlaesse": [
+      "wichteln",
+      "geburtstag"
+    ],
+    "kategorie": "kueche"
+  },
+  {
     "id": "f-0001",
     "slug": "f-0001-notfall-unterhose-in-der-dose",
     "datum": "2026-11-25",
