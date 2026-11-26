@@ -1,6 +1,8 @@
 // Baut die Seite /geschenk/ von schmetterlingsfutter.de (Paket AE-09 der Amazon-Engine).
-// Die Play-App (TWA) verlinkt Amazon nicht direkt, sondern auf diese Seite: /geschenk/?q=<Suchbegriff>[&m=<Cent>][&a=1].
+// Die Play-App (TWA) verlinkt Amazon nicht direkt, sondern auf diese Seite: /geschenk/?q=<Suchbegriff>[&m=<Cent>][&a=1][&k=fam].
 //   q = Suchbegriff (nur als Text eingesetzt), m = Höchstbetrag in Cent (Preisfilter), a=1 = ohne Partnerkennung.
+//   k=fam = Familien-Tipp der Raupenzeit (App ab 3.57.1): eigene Kennung TAG_FAM, Überschrift „Idee für euch“, ohne die drei Geschenk-Tipps.
+//   Die Kennung kommt nie aus der Adresse: k wählt nur zwischen den beiden festen Kennungen, jeder andere Wert zählt als normaler Aufruf.
 // Ohne q: Weiterleitung auf /geschenkideen-freundin-freund/. Die Seite steht nicht in der Sitemap (noindex).
 // Aufruf (im Repo-Ordner): node _werkzeug/geschenk-bauen.mjs
 import { mkdirSync, writeFileSync } from 'node:fs';
@@ -10,6 +12,7 @@ import { SITE, PAGES } from './ratgeber-inhalte.mjs';
 import { TAG, esc, amazon, rahmen } from './rahmen.mjs';
 import { ROOT } from './ratgeber-bauen.mjs';
 
+export const TAG_FAM = 'sf-raupenzeit-21'; // Amazon-Kennung der Familien-Tipps (in der App: D.affiliateTagFam)
 export const TIPPS = [
   'Denk an etwas, das sie oder er zuletzt erwähnt hat. Das schlägt jede Bestenliste.',
   'Lieber klein und passend als groß und beliebig.',
@@ -19,10 +22,11 @@ const HINWEIS = '* Partnerlink: Kaufst du darüber ein, bekommen wir eine kleine
 
 const SKRIPT = `(function(){var p=new URLSearchParams(location.search),q=(p.get('q')||'').replace(/\\s+/g,' ').trim().slice(0,100);
 if(!q){location.replace('/geschenkideen-freundin-freund/');return}
-var a=p.get('a')==='1',m=p.get('m')||'';
-document.getElementById('gk-h1').textContent='Geschenkidee: '+q;
-var u='https://www.amazon.de/s?k='+encodeURIComponent(q).replace(/%20/g,'+')+(/^\\d{1,7}$/.test(m)&&+m>0?'&rh=p_36%3A-'+m:'')+(a?'':'&tag=${TAG}');
+var a=p.get('a')==='1',m=p.get('m')||'',f=p.get('k')==='fam';
+document.getElementById('gk-h1').textContent=(f?'Idee für euch: ':'Geschenkidee: ')+q;
+var u='https://www.amazon.de/s?k='+encodeURIComponent(q).replace(/%20/g,'+')+(/^\\d{1,7}$/.test(m)&&+m>0?'&rh=p_36%3A-'+m:'')+(a?'':'&tag='+(f?'${TAG_FAM}':'${TAG}'));
 var b=document.getElementById('gk-buy');b.href=u;
+if(f){document.title='Idee für euch | Schmetterlingsfutter';var s=document.getElementById('gk-tipps');if(s)s.remove()}
 if(a){b.textContent='Bei Amazon ansehen';b.rel='noopener';['gk-anz','gk-hinweis'].forEach(function(i){var e=document.getElementById(i);if(e)e.remove()})}
 document.getElementById('gk-inhalt').hidden=false})();`;
 
@@ -30,7 +34,7 @@ export function geschenkSeite() {
   const main = `<nav class="crumbs" aria-label="Brotkrumen"><a href="/">Start</a> › Geschenkidee</nav>
 <h1 id="gk-h1">Geschenkidee</h1>
 <div id="gk-inhalt" hidden>
-<ol class="steps">${TIPPS.map((t) => `<li><span>${esc(t)}</span></li>`).join('')}</ol>
+<ol class="steps" id="gk-tipps">${TIPPS.map((t) => `<li><span>${esc(t)}</span></li>`).join('')}</ol>
 <p class="anzeige" id="gk-anz">Anzeige</p>
 <a class="buy" id="gk-buy" href="${esc(amazon('Geschenk'))}" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a>
 </div>
