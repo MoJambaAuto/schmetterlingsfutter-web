@@ -406,7 +406,7 @@ export function wichtelSeite(daten, geprueft = []) {
 const FEED = 'https://mojambaauto.github.io/amazon-engine/feed/funde.json';
 export const KANAL = 'https://whatsapp.com/channel/0029Vb9gGpbId7nS5nRT380l';
 // Mo 28.11.2026: „Alles sollte auf alles querverweisen und überall verlinkt sein.“ Instagram folgt, sobald das Profil steht.
-export const TELEGRAM = 'https://t.me/papillionsfund';
+export const TELEGRAM = 'https://t.me/papillonsfund';
 export const SOZIAL = [
   { name: 'WhatsApp', url: KANAL },
   { name: 'Telegram', url: TELEGRAM },
@@ -450,7 +450,7 @@ h.innerHTML='<ul class="ideas"><li class="idea"><h3>'+e(f.text_h)+'</h3><span cl
     disclose: '* Partnerlink: Kaufst du darüber ein, bekommen wir eine kleine Provision. Am Preis ändert sich für dich nichts. Als Amazon-Partner verdienen wir an qualifizierten Verkäufen. Die Funde wählen wir selbst aus.',
     faq: [
       ['Was ist Papillons Fund des Tages?', 'Jeden Tag eine kuriose Geschenkidee, die wir selbst ausgesucht haben. Neue Funde erscheinen hier und in den Kanälen bei WhatsApp und Telegram.'],
-      ['Wo bekomme ich den Fund jeden Tag?', 'Hier auf der Seite oder kostenlos aufs Handy: im <a href="https://whatsapp.com/channel/0029Vb9gGpbId7nS5nRT380l" target="_blank" rel="noopener">WhatsApp-Kanal</a> oder im <a href="https://t.me/papillionsfund" target="_blank" rel="noopener">Telegram-Kanal</a> „Papillons Fund des Tages“.'],
+      ['Wo bekomme ich den Fund jeden Tag?', 'Hier auf der Seite oder kostenlos aufs Handy: im <a href="https://whatsapp.com/channel/0029Vb9gGpbId7nS5nRT380l" target="_blank" rel="noopener">WhatsApp-Kanal</a> oder im <a href="https://t.me/papillonsfund" target="_blank" rel="noopener">Telegram-Kanal</a> „Papillons Fund des Tages“.'],
       ['Warum stehen keine Preise dabei?', 'Preise ändern sich ständig. Der Link zeigt dir die aktuelle Auswahl bei Amazon.'],
       ['Wie funktionieren die Links mit Sternchen?', 'Das sind Partnerlinks zu Amazon. Kaufst du darüber ein, bekommen wir eine kleine Provision. Für dich ändert sich nichts.'],
     ],
