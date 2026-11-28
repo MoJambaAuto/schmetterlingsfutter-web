@@ -148,6 +148,10 @@ h3{font-size:20px;line-height:1.35;color:var(--text);font-weight:700;margin-bott
 .disclose{margin-top:44px;font-size:16px;color:var(--text-muted)}
 footer{margin-top:28px;padding:20px 0 40px;border-top:.5px solid var(--line-soft);font-size:16px;color:var(--text-muted);line-height:1.7}
 footer a{color:var(--text-muted)}
+footer .sozial{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;margin-bottom:12px;font-size:17px}
+footer .sozial b{color:var(--text)}
+footer .sozial a{color:var(--text);font-weight:700;text-decoration:underline;text-underline-offset:3px;min-height:44px;display:inline-flex;align-items:center}
+.kanal{display:flex;flex-wrap:wrap;gap:8px}
 footer .links{display:flex;flex-wrap:wrap;gap:6px 18px;margin-bottom:12px}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:1ms!important;scroll-behavior:auto!important}}

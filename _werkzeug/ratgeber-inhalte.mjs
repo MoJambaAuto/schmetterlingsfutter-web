@@ -405,7 +405,15 @@ export function wichtelSeite(daten, geprueft = []) {
 // Das Skript zeigt nur einen neueren Fund von heute an, falls der tägliche Bau noch nicht gelaufen ist.
 const FEED = 'https://mojambaauto.github.io/amazon-engine/feed/funde.json';
 export const KANAL = 'https://whatsapp.com/channel/0029Vb9gGpbId7nS5nRT380l';
-const kanalKnopf = `<p class="kanal"><a class="buy app" href="${KANAL}" target="_blank" rel="noopener">💬 Jeden Tag aufs Handy: WhatsApp-Kanal folgen →</a></p>`;
+// Mo 28.11.2026: „Alles sollte auf alles querverweisen und überall verlinkt sein.“ Instagram folgt, sobald das Profil steht.
+export const TELEGRAM = 'https://t.me/papillionsfund';
+export const SOZIAL = [
+  { name: 'WhatsApp', url: KANAL },
+  { name: 'Telegram', url: TELEGRAM },
+  { name: 'TikTok', url: 'https://www.tiktok.com/@schmetterlingsfutter' },
+  { name: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61597109454624' },
+];
+const kanalKnopf = `<p class="kanal"><a class="buy app" href="${KANAL}" target="_blank" rel="noopener">💬 WhatsApp-Kanal →</a> <a class="buy app" href="${TELEGRAM}" target="_blank" rel="noopener">✈️ Telegram-Kanal →</a></p>`;
 const escF = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const ttmmjjjj = (d) => `${d.slice(8, 10)}.${d.slice(5, 7)}.${d.slice(0, 4)}`;
 function fundKarte(f, gross) {
@@ -441,8 +449,8 @@ h.innerHTML='<ul class="ideas"><li class="idea"><h3>'+e(f.text_h)+'</h3><span cl
     app: geschenke.app,
     disclose: '* Partnerlink: Kaufst du darüber ein, bekommen wir eine kleine Provision. Am Preis ändert sich für dich nichts. Als Amazon-Partner verdienen wir an qualifizierten Verkäufen. Die Funde wählen wir selbst aus.',
     faq: [
-      ['Was ist Papillons Fund des Tages?', 'Jeden Tag eine kuriose Geschenkidee, die wir selbst ausgesucht haben. Neue Funde erscheinen hier und im WhatsApp-Kanal.'],
-      ['Wo bekomme ich den Fund jeden Tag?', 'Hier auf der Seite oder im WhatsApp-Kanal <a href="https://whatsapp.com/channel/0029Vb9gGpbId7nS5nRT380l" target="_blank" rel="noopener">„Papillons Fund des Tages“</a>.'],
+      ['Was ist Papillons Fund des Tages?', 'Jeden Tag eine kuriose Geschenkidee, die wir selbst ausgesucht haben. Neue Funde erscheinen hier und in den Kanälen bei WhatsApp und Telegram.'],
+      ['Wo bekomme ich den Fund jeden Tag?', 'Hier auf der Seite oder kostenlos aufs Handy: im <a href="https://whatsapp.com/channel/0029Vb9gGpbId7nS5nRT380l" target="_blank" rel="noopener">WhatsApp-Kanal</a> oder im <a href="https://t.me/papillionsfund" target="_blank" rel="noopener">Telegram-Kanal</a> „Papillons Fund des Tages“.'],
       ['Warum stehen keine Preise dabei?', 'Preise ändern sich ständig. Der Link zeigt dir die aktuelle Auswahl bei Amazon.'],
       ['Wie funktionieren die Links mit Sternchen?', 'Das sind Partnerlinks zu Amazon. Kaufst du darüber ein, bekommen wir eine kleine Provision. Für dich ändert sich nichts.'],
     ],

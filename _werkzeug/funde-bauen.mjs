@@ -6,7 +6,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { SITE, PAGES, KANAL, fundeSeite, wichtelSeite, geprueftLink, geprueftDatenLesen } from './ratgeber-inhalte.mjs';
+import { SITE, PAGES, KANAL, TELEGRAM, fundeSeite, wichtelSeite, geprueftLink, geprueftDatenLesen } from './ratgeber-inhalte.mjs';
 import { APP, esc, rahmen } from './rahmen.mjs';
 import { ROOT, page } from './ratgeber-bauen.mjs';
 
@@ -70,7 +70,7 @@ export function fundSeite(f) {
 <p class="lead">${esc(f.text_p)}</p>
 ${geprueftLink(f) ? `<p class="anzeige">Anzeige</p>
 <a class="buy" href="${esc(geprueftLink(f))}" target="_blank" rel="sponsored noopener">Bei Amazon ansehen *</a>` : '<p class="neu-pruefen">Diesen Fund prüfen wir gerade neu.</p>'}
-<ul class="more fund-weiter"><li><a href="/funde/"><span aria-hidden="true">🔍</span>Alle Funde →</a></li><li><a href="${KANAL}" target="_blank" rel="noopener"><span aria-hidden="true">💬</span>Jeden Tag im WhatsApp-Kanal</a></li><li><a href="/wichtelgeschenke/"><span aria-hidden="true">🎅</span>Lustige Wichtelgeschenke</a></li></ul>
+<ul class="more fund-weiter"><li><a href="/funde/"><span aria-hidden="true">🔍</span>Alle Funde →</a></li><li><a href="${KANAL}" target="_blank" rel="noopener"><span aria-hidden="true">💬</span>Jeden Tag im WhatsApp-Kanal</a></li><li><a href="${TELEGRAM}" target="_blank" rel="noopener"><span aria-hidden="true">✈️</span>Jeden Tag im Telegram-Kanal</a></li><li><a href="/wichtelgeschenke/"><span aria-hidden="true">🎅</span>Lustige Wichtelgeschenke</a></li></ul>
 <aside class="appbox">
   <h2>${esc(app.h)}</h2>
   <p>${app.p}</p>

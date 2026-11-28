@@ -1,6 +1,6 @@
 // Gemeinsamer Seitenrahmen der Ratgeber- und Fund-Seiten von schmetterlingsfutter.de (Kopf, Kopfzeile, Fuß).
 // Genutzt von ratgeber-bauen.mjs und funde-bauen.mjs (Paket AE-07).
-import { SITE } from './ratgeber-inhalte.mjs';
+import { SITE, SOZIAL } from './ratgeber-inhalte.mjs';
 
 export const TAG = 'schmetterlingsfutter-21';
 export const APP = 'https://app.schmetterlingsfutter.de/';
@@ -50,6 +50,7 @@ ${main}
 </main>
 <footer>
   <div class="links"><a href="/">Startseite</a>${pages.map((o) => `<a href="/${o.slug}/">${esc(o.crumb)}</a>`).join('')}<a href="${APP}privacy.html">Datenschutz</a><a href="/#impressum">Impressum</a></div>
+  <div class="sozial"><b>Folge Papillon:</b>${SOZIAL.map((k) => `<a href="${k.url}" target="_blank" rel="noopener">${k.name}</a>`).join('')}</div>
   © 2026 Schmetterlingsfutter · MoJamba – Stefan Wilhelm Münch, Alfter
 </footer>
 </div>
