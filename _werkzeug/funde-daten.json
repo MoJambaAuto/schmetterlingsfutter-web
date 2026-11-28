@@ -1,5 +1,20 @@
 [
   {
+    "id": "f-0008",
+    "slug": "f-0008-fisch-badelatschen",
+    "datum": "2026-11-28",
+    "titel": "Fisch-Badelatschen",
+    "text_h": "Fisch-Badelatschen: Der Fuß steckt im Maul",
+    "text_p": "Badeschuhe in Form zweier Fische, der Fuß steckt im Maul. Ein Paar Latschen, über das am Beckenrand gesprochen wird. Der Knopf führt direkt zum Produkt bei Amazon.",
+    "asin": "B08MC27537",
+    "link": "https://www.amazon.de/dp/B08MC27537/ref=nosim?tag=schmetterlingsfutter-21",
+    "anlaesse": [
+      "wichteln",
+      "sommer"
+    ],
+    "kategorie": "schuhe"
+  },
+  {
     "id": "f-0007",
     "slug": "f-0007-tortilla-decke",
     "datum": "2026-11-27",
