@@ -1,6 +1,7 @@
 // Baut die Seite /geschenk/ von schmetterlingsfutter.de (Paket AE-09 der Amazon-Engine).
 // Die Play-App (TWA) verlinkt Amazon nicht direkt, sondern auf diese Seite: /geschenk/?q=<Suchbegriff>[&m=<Cent>][&a=1][&k=fam].
 //   q = Suchbegriff (nur als Text eingesetzt), m = Höchstbetrag in Cent (Preisfilter), a=1 = ohne Partnerkennung.
+//   d = geprüfte Amazon-Produktnummer (ASIN, 10 Zeichen): dann geht der Knopf direkt auf die Produktseite statt auf die Suche (App ab 3.59.0).
 //   k=fam = Familien-Tipp der Raupenzeit (App ab 3.57.1): eigene Kennung TAG_FAM, Überschrift „Idee für euch“, ohne die drei Geschenk-Tipps.
 //   Die Kennung kommt nie aus der Adresse: k wählt nur zwischen den beiden festen Kennungen, jeder andere Wert zählt als normaler Aufruf.
 // Ohne q: Weiterleitung auf /geschenkideen-freundin-freund/. Die Seite steht nicht in der Sitemap (noindex).
@@ -25,6 +26,7 @@ if(!q){location.replace('/geschenkideen-freundin-freund/');return}
 var a=p.get('a')==='1',m=p.get('m')||'',f=p.get('k')==='fam';
 document.getElementById('gk-h1').textContent=(f?'Idee für euch: ':'Geschenkidee: ')+q;
 var u='https://www.amazon.de/s?k='+encodeURIComponent(q).replace(/%20/g,'+')+(/^\\d{1,7}$/.test(m)&&+m>0?'&rh=p_36%3A-'+m:'')+(a?'':'&tag='+(f?'${TAG_FAM}':'${TAG}'));
+var d=p.get('d')||'';if(/^[A-Z0-9]{10}$/.test(d))u='https://www.amazon.de/dp/'+d+(a?'':'?tag='+(f?'${TAG_FAM}':'${TAG}'));
 var b=document.getElementById('gk-buy');b.href=u;
 if(f){document.title='Idee für euch | Schmetterlingsfutter';var s=document.getElementById('gk-tipps');if(s)s.remove()}
 if(a){b.textContent='Bei Amazon ansehen';b.rel='noopener';['gk-anz','gk-hinweis'].forEach(function(i){var e=document.getElementById(i);if(e)e.remove()})}
